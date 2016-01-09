@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: larang
+        psr4_prefix: larang
+        src_path: app
