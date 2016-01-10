@@ -1,14 +1,17 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Route::post('oauth/access_token', function () {
     return Response::json(Authorizer::issueAccessToken());
 });
-
-
+Route::get('home',function(){
+    return redirect('/');
+});
+Route::controllers([
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController'    
+]);
 Route::group(['middleware' => 'oauth'], function() {
     Route::resource('client', 'ClientController', ['except' => ['edit', 'create']]);
     Route::group(['middleware' => 'CheckProjectOwner'], function() {

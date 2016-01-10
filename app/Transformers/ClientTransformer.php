@@ -10,7 +10,6 @@ class ClientTransformer extends TransformerAbstract
 
     public function transform(Client $model)
     {
-        $model = $p->client;
         return [
             'id' => $model->id,
             'name' => $model->name,
