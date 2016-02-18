@@ -35,11 +35,15 @@ class ProjectFileService extends Service
     public function deleteFile($id)
     {
         $pf = $this->repository->find($id);
-        $filename = $pf->name.".".$pf->extension;
-        if (Storage::exists($filename) && $this->delete($id)) {
-            return Storage::delete($filename);
+        //($this->repository->find($id));
+        $filename = $pf->name . "." . $pf->extension;
+        if (Storage::exists($filename)) {
+            Storage::delete($filename);
         }
-        return true;
+        if (!Storage::exists($filename)) {
+            return $pf->delete($id);
+        }
+        return false;
     }
 
 }

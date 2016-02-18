@@ -2,8 +2,8 @@
 
 namespace larang\Transformers;
 
-use larang\Entities\ProjectTask;
 use League\Fractal\TransformerAbstract;
+use larang\Entities\ProjectTask;
 
 /**
  * Description of ProjectTransformer

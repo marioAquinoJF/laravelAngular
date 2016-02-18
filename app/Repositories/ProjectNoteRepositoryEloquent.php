@@ -6,12 +6,15 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use larang\Repositories\ProjectNoteRepository;
 use larang\Entities\ProjectNote;
+use larang\Presenters\ProjectNotePresenter;
+
 /**
  * Class ProjectNoteRepositoryEloquent
  * @package namespace larang\Repositories;
  */
 class ProjectNoteRepositoryEloquent extends BaseRepository implements ProjectNoteRepository
 {
+
     /**
      * Specify Model class name
      *
@@ -29,10 +32,14 @@ class ProjectNoteRepositoryEloquent extends BaseRepository implements ProjectNot
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
-    
+
     public function presenter()
     {
         return ProjectNotePresenter::class;
+    }
+
+    public function exists($id)
+    {
+        return ProjectNote::find($id);
     }
 }

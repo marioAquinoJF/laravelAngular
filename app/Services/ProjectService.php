@@ -42,14 +42,28 @@ class ProjectService
         return $this->repository->update($data, $id);
     }
 
-    public function addMember($projectId, $userId)
+    public function addMember($project_id, $user_id)
     {
-        return Project::find($projectId)->members()->attach($userId);
+        $member = $this->repository->hasMember($user_id, $project_id);
+        if (count($member) === 0) {
+            return is_null(Project::find($project_id)->members()->attach($user_id));
+        }
+        return false;
     }
 
     public function removeMember($projectId, $userId)
     {
         return $this->repository->find($projectId)->members()->detach($userId);
+    }
+
+    public function removeTasks($projectId, $userId)
+    {
+        return $this->repository->find($projectId)->members()->detach($userId);
+    }
+
+    public function delete($id)
+    {
+        return $this->repository->removeProject($id);
     }
 
 }

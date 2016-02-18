@@ -102,7 +102,7 @@ class ProjectFileController extends Controller
      */
     public function destroy($id)
     {
-            return [$this->service->deleteFile($id)];
+        return [$this->service->deleteFile($id)];
     }
 
 }

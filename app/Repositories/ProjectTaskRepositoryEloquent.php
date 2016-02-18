@@ -6,7 +6,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use larang\Repositories\ProjectTaskRepository;
 use larang\Entities\ProjectTask;
-
+use larang\Presenters\ProjectTaskPresenter;
 /**
  * Class ProjectTaskRepositoryEloquent
  * @package namespace larang\Repositories;
@@ -33,6 +33,6 @@ class ProjectTaskRepositoryEloquent extends BaseRepository implements ProjectTas
     
     public function presenter()
     {
-        return ProjectTasksPresenter::class;
+        return ProjectTaskPresenter::class;
     }
 }

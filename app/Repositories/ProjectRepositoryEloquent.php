@@ -4,8 +4,7 @@ namespace larang\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use larang\Repositories\ProjectRepository;
-USE larang\Presenters\ProjectPresenter;
+use larang\Presenters\ProjectPresenter;
 use larang\Entities\Project;
 
 /**
@@ -40,8 +39,7 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
 
     public function hasMember($memberId, $projectId)
     {
-        $member = Project::find($projectId)->members()->where('user_id', $memberId)->limit(1)->get();
-        return count($member) ? $member[0] : false;
+        return Project::find($projectId)->members()->where('user_id', $memberId)->limit(1)->get();
     }
 
     public function presenter()
@@ -52,6 +50,48 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
     public function getFullProject($id)
     {
         return $this->with(['owner', 'client', 'tasks', 'notes', 'members'])->find($id);
+    }
+
+    public function getMember($member_id, $id)
+    {
+        return Project::find($id)->members()->where('user_id', $member_id)->limit(1)->get();
+    }
+
+    public function getTask($id, $task_id)
+    {
+        return Project::find($id)->tasks()->where('id', $task_id)->limit(1)->get();
+    }
+
+    public function removeMembers($projectId)
+    {
+        return Project::find($projectId)->members()->detach();
+    }
+
+    public function removeTasks($projectId)
+    {
+        return Project::find($projectId)->tasks()->delete();
+    }
+
+    public function removeNotes($projectId)
+    {
+        return Project::find($projectId)->notes()->delete();
+    }
+
+    public function removeFiles($param)
+    {
+        return $this->repository->find($id)->members()->detach();
+    }
+
+    public function removeProject($projectId)
+    {
+        $project = Project::find($projectId);
+        if (!is_null($project)) {
+            $project->members()->detach();
+            $project->tasks()->delete();
+            $project->notes()->delete();
+            return $project->delete();
+        }
+        return true;
     }
 
 }

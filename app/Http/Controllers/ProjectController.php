@@ -25,7 +25,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return $this->repository->all(); 
+        return $this->repository->all();
     }
 
     /**
@@ -72,7 +72,7 @@ class ProjectController extends Controller
      */
     public function destroy(Request $request)
     {
-        return (string) $this->repository->delete($request->id);
+        return [$this->service->delete($request->id)];
     }
 
     // METHODS TO RELATIONS WITH MEMBERS   
@@ -81,14 +81,14 @@ class ProjectController extends Controller
         return $this->repository->find($id)['data']['members'];
     }
 
-    public function getMember($id, $memberId)
+    public function getMember($project_id, $member_id)
     {
-        return $this->repository->getMember($id, $memberId);
+        return $this->repository->hasMember($member_id, $project_id);
     }
 
     public function newMember(Request $request)
     {
-        return (string) $this->service->addMember($request->id, $request->member_id);
+        return [$this->service->addMember($request->id, $request->member_id)];
     }
 
     public function removeMember(Request $request)
@@ -96,17 +96,35 @@ class ProjectController extends Controller
         return $this->service->removeMember($request->id, $request->member_Id);
     }
 
-    public function hasMember(Request $request)
+    public function isMember($project_id, $user_id)
     {
-        $member = $this->repository->hasMember($request->userId, $request->pId);
-        return is_bool($member) ? 'false' : $member;
+        $member = $this->repository->hasMember($user_id, $project_id);
+        if (is_array($member)) {
+            return count($member) === 0 ? false : $member;
+        }
+        return false;
     }
 
     // METHODS TO RELATIONS WITH TASKS
     public function getTasks($id)
     {
-        $t = $this->repository->find($id)['data']['tasks'];
-        return $t;
+        return $this->repository->find($id)['data']['tasks'];
+    }
+
+    public function getTask($id, $task_id)
+    {
+        return $this->repository->getTask($id, $task_id);
+    }
+
+    // METHODS TO RELATIONS WITH Files
+    public function getFiles($id)
+    {
+        return $this->repository->find($id)['data']['files'];
+    }
+
+    public function getFile($id, $task_id)
+    {
+        return $this->repository->getTask($id, $task_id);
     }
 
 }

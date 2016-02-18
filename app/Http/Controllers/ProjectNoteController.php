@@ -70,7 +70,10 @@ class ProjectNoteController extends Controller
      */
     public function destroy(Request $request)
     {
-        return (string) $this->repository->delete($request->id);
+        if ($this->repository->exists($request->id)) {
+            return (string) $this->repository->delete($request->id);
+        }
+        return 0;
     }
 
 }
