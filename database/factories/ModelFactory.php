@@ -35,8 +35,8 @@ $factory->define(larang\Entities\Project::class, function (Faker\Generator $fake
         'owner_id' => rand(1,10),
         'client_id' => $faker->numberBetween(1, 11),
         'name' => $faker->word,
-        'description' => $faker->sentence,
-        'progress' => rand(1,100),
+        'description' => $faker->paragraph,
+        'progress' => rand(1,3),
         'status' => rand(1, 3),
         'due_date' => $faker->date('now')
     ];
@@ -74,3 +74,13 @@ $factory->define(larang\Entities\OAuthClient::class, function () {
         'name' => 'projects',
     ];
 });
+
+$factory->define(larang\Entities\ProjectFile::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'description' => $faker->sentence(15),
+        'lable' => 'teste',
+        'extension' => 'jpg',
+        'project_id' => rand(1, 30),
+    ];
+}); 

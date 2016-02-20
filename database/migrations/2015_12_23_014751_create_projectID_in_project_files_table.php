@@ -25,7 +25,8 @@ class CreateProjectIDInProjectFilesTable extends Migration {
      */
     public function down() {
         Schema::table('project_files', function (Blueprint $table) {
-            //
+            //project_files_project_id_foreign
+            $table->dropForeign('project_files_project_id_foreign');
         });
     }
 

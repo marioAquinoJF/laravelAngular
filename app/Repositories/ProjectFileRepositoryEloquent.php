@@ -5,6 +5,7 @@ namespace larang\Repositories;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use larang\Entities\ProjectFile;
+use larang\Presenters\ProjectFilePresenter;
 /**
  * Class PorjectFileRepositoryEloquent
  * @package namespace larang\Repositories;
@@ -30,5 +31,8 @@ class ProjectFileRepositoryEloquent extends BaseRepository implements ProjectFil
         $this->pushCriteria(app(RequestCriteria::class));
     }
     
-    
+    public function presenter()
+    {
+        return ProjectFilePresenter::class;
+    }
 }

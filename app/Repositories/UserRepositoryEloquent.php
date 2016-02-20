@@ -6,6 +6,7 @@ use larang\Entities\User;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use larang\Repositories\UserRepository;
+use larang\Presenters\UserPresenter;
 
 /**
  * Class UserRepositoryRepositoryEloquent
@@ -31,6 +32,9 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-
+    public function presenter()
+    {
+        return UserPresenter::class;
+    }
 
 }
