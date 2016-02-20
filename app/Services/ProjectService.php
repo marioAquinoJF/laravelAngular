@@ -8,7 +8,7 @@ use larang\Validators\ProjectValidator;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Filesystem\Filesystem;
 
-class ProjectService
+class ProjectService extends Service
 {
 
     protected $repository;
@@ -22,24 +22,6 @@ class ProjectService
         $this->validator = $validator;
         $this->fileSystem = $fileSystem;
         $this->storage = $storage;
-    }
-
-    public function create(array $data)
-    {
-        try {
-            $this->validator->with($data)->passesOrFail();
-            return $this->repository->create($data);
-        } catch (ValidatorException $ex) {
-            return [
-                'error' => TRUE,
-                'message' => $ex->getMessageBag()
-            ];
-        }
-    }
-
-    public function update(array $data, $id)
-    {
-        return $this->repository->update($data, $id);
     }
 
     public function addMember($project_id, $user_id)
