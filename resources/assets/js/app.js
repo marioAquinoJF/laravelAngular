@@ -14,9 +14,9 @@ app.config(['$routeProvider', 'OAuthProvider', function ($routeProvider, OAuthPr
                 });
         OAuthProvider.configure({
             baseUrl: 'http://larangular',
-            clientId: 'app1',
+            clientId: 'app02',
             clientSecret: 'secret', // optional
-            grantPath: 'oauth/access_token',
+            grantPath: 'oauth/access_token'
         });
     }]);
 
