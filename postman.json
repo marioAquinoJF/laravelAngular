@@ -1,0 +1,714 @@
+{
+    "id": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+    "name": "Entrega 04",
+    "timestamp": 1455564093627,
+    "requests": [{
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "0453d3d8-c0ce-d530-86dd-8a01aeba677f",
+            "name": "Client - Show",
+            "description": "Exibe um client",
+            "url": "http://larangular/client/2",
+            "method": "GET",
+            "headers": "Authorization: Bearer XXuLtEWJ8O0RGBWQ4933OZ1XicYLTT9UY3n2lOVr\n",
+            "data": [{
+                    "key": "id",
+                    "value": "18",
+                    "type": "text"
+                }],
+            "dataMode": "urlencoded",
+            "timestamp": 0,
+            "version": 2,
+            "time": 1456166580569
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "0e77d83a-8350-530a-259e-c658cb5bf9ab",
+            "name": "Task - Create",
+            "description": "",
+            "url": "http://larangular/project/task",
+            "method": "POST",
+            "headers": "Authorization: Bearer RsEWZvPaSQZMrbiGqB9nGUfPv7OmdQjWitwnLtIR\n",
+            "data": [{
+                    "key": "project_id",
+                    "value": "2",
+                    "type": "text"
+                }, {
+                    "key": "name",
+                    "value": "Teste Store task",
+                    "type": "text"
+                }, {
+                    "key": "start_date",
+                    "value": "2015-12-11",
+                    "type": "text"
+                }, {
+                    "key": "due_date",
+                    "value": "1980-09-01",
+                    "type": "text"
+                }, {
+                    "key": "status",
+                    "value": "2",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "responses": [],
+            "version": 2
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "1a717ca4-6827-55da-3385-1bfbf06fcf05",
+            "name": "Task - delete",
+            "description": "",
+            "url": "http://larangular/project/task/2",
+            "method": "DELETE",
+            "headers": "Authorization: Bearer u05SGm8KMieYKA7YpvXXefZMeGZCS8psCaeXc0mQ\n",
+            "data": [{
+                    "key": "id",
+                    "value": "2",
+                    "type": "text"
+                }],
+            "dataMode": "urlencoded",
+            "timestamp": 0,
+            "responses": [],
+            "version": 2
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "244219b5-ce29-52b0-778a-fe70ec35d6c1",
+            "name": "access_token",
+            "description": "Token oauth2",
+            "url": "http://larangular/oauth/access_token",
+            "method": "POST",
+            "headers": "",
+            "data": [{
+                    "key": "username",
+                    "value": "marioaquino31@hotmail.com",
+                    "type": "text"
+                }, {
+                    "key": "password",
+                    "value": "123456",
+                    "type": "text"
+                }, {
+                    "key": "client_id",
+                    "value": "app02",
+                    "type": "text"
+                }, {
+                    "key": "client_secret",
+                    "value": "secret",
+                    "type": "text"
+                }, {
+                    "key": "grant_type",
+                    "value": "password",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "version": 2,
+            "time": 1455797651895
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "26699b96-0905-5758-54b4-66fbb05ac497",
+            "name": "Note - Update",
+            "description": "",
+            "url": "http://larangular/project/note/2",
+            "method": "PUT",
+            "headers": "Authorization: Bearer idAI9JUerjW0zTIrAzbLPZWjDdfYjdMaogsPyWgy\n",
+            "data": [{
+                    "key": "project_id",
+                    "value": "1",
+                    "type": "text"
+                }, {
+                    "key": "title",
+                    "value": "TÃ­tulo teste1",
+                    "type": "text"
+                }, {
+                    "key": "note",
+                    "value": "Note Teste1",
+                    "type": "text"
+                }, {
+                    "key": "id",
+                    "value": "2",
+                    "type": "text"
+                }],
+            "dataMode": "urlencoded",
+            "timestamp": 0,
+            "version": 2,
+            "time": 1455997585554
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "35de668a-cef0-3023-d9f8-49055fb4143c",
+            "name": "Client - Delete",
+            "description": "Apaga um 'client' pelo id",
+            "url": "http://larangular/client/18",
+            "method": "DELETE",
+            "headers": "Authorization: Bearer XXuLtEWJ8O0RGBWQ4933OZ1XicYLTT9UY3n2lOVr\n",
+            "data": [{
+                    "key": "id",
+                    "value": "18",
+                    "type": "text"
+                }],
+            "dataMode": "urlencoded",
+            "timestamp": 0,
+            "version": 2,
+            "time": 1456166546171
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "3675edd5-35b3-9d8a-bf49-984c72de33b3",
+            "name": "Task - Project - show",
+            "description": "",
+            "url": "http://larangular/project/7/task/2",
+            "method": "GET",
+            "headers": "Authorization: Bearer u05SGm8KMieYKA7YpvXXefZMeGZCS8psCaeXc0mQ\n",
+            "data": [{
+                    "key": "username",
+                    "value": "marioaquino31@hotmail.com",
+                    "type": "text"
+                }, {
+                    "key": "password",
+                    "value": "123456",
+                    "type": "text"
+                }, {
+                    "key": "client_id",
+                    "value": "app02",
+                    "type": "text"
+                }, {
+                    "key": "client_secret",
+                    "value": "secret",
+                    "type": "text"
+                }, {
+                    "key": "grant_type",
+                    "value": "password",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "responses": [],
+            "version": 2
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "3be618d0-d443-6b3d-c569-2f6c5eb78ce5",
+            "name": "Member - Show",
+            "description": "",
+            "url": "http://larangular/project/10/member/6",
+            "method": "GET",
+            "headers": "Authorization: Bearer Bb7oa4X22HTffSUDJEVbCP36bqCwXbO7xMNeibti\n",
+            "data": [{
+                    "key": "username",
+                    "value": "marioaquino31@hotmail.com",
+                    "type": "text"
+                }, {
+                    "key": "password",
+                    "value": "123456",
+                    "type": "text"
+                }, {
+                    "key": "client_id",
+                    "value": "app02",
+                    "type": "text"
+                }, {
+                    "key": "client_secret",
+                    "value": "secret",
+                    "type": "text"
+                }, {
+                    "key": "grant_type",
+                    "value": "password",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "responses": [],
+            "version": 2
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "3de5c6c2-3935-b242-25b4-e5307f684dbd",
+            "name": "Task - Project - list",
+            "description": "",
+            "url": "http://larangular/project/8/tasks",
+            "method": "GET",
+            "headers": "Authorization: Bearer DdEfCsQ2duvpAw2fURBb34emAqwUPvcStEi86qUe\n",
+            "data": [{
+                    "key": "username",
+                    "value": "marioaquino31@hotmail.com",
+                    "type": "text"
+                }, {
+                    "key": "password",
+                    "value": "123456",
+                    "type": "text"
+                }, {
+                    "key": "client_id",
+                    "value": "app02",
+                    "type": "text"
+                }, {
+                    "key": "client_secret",
+                    "value": "secret",
+                    "type": "text"
+                }, {
+                    "key": "grant_type",
+                    "value": "password",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "version": 2,
+            "time": 1455902052199
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "3f33a352-e1d1-11ee-2664-2d827ed5aa0b",
+            "name": "Project - update",
+            "description": "",
+            "url": "http://larangular/project/1",
+            "method": "PUT",
+            "headers": "Authorization: Bearer rZQJxGPFgx19eDFbMHvXEnkVa7mjq3OZfp4in5lF\n",
+            "data": [{
+                    "key": "id",
+                    "value": "1",
+                    "type": "text"
+                }, {
+                    "key": "owner_id",
+                    "value": "2",
+                    "type": "text"
+                }, {
+                    "key": "client_id",
+                    "value": "2",
+                    "type": "text"
+                }, {
+                    "key": "name",
+                    "value": "MÃ¡rio Teste 01",
+                    "type": "text"
+                }, {
+                    "key": "description",
+                    "value": "Description Teste",
+                    "type": "text"
+                }, {
+                    "key": "progress",
+                    "value": "2",
+                    "type": "text"
+                }, {
+                    "key": "status",
+                    "value": "3",
+                    "type": "text"
+                }, {
+                    "key": "due_date",
+                    "value": "2015-01-08",
+                    "type": "text"
+                }],
+            "dataMode": "urlencoded",
+            "timestamp": 0,
+            "version": 2,
+            "time": 1455798231981
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "4be60f26-273a-0cb2-4e7d-a006df63b759",
+            "name": "Project - show",
+            "description": "",
+            "url": "http://larangular/project/2",
+            "method": "GET",
+            "headers": "Authorization: Bearer u05SGm8KMieYKA7YpvXXefZMeGZCS8psCaeXc0mQ\n",
+            "data": [{
+                    "key": "owner_id",
+                    "value": "1",
+                    "type": "text"
+                }, {
+                    "key": "client_id",
+                    "value": "1",
+                    "type": "text"
+                }, {
+                    "key": "name",
+                    "value": "Teste Create",
+                    "type": "text"
+                }, {
+                    "key": "description",
+                    "value": "2015-12-11",
+                    "type": "text"
+                }, {
+                    "key": "progress",
+                    "value": "53",
+                    "type": "text"
+                }, {
+                    "key": "status",
+                    "value": "1",
+                    "type": "text"
+                }, {
+                    "key": "due_date",
+                    "value": "2015-01-01",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "responses": [],
+            "version": 2
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "7178af5b-abed-03ab-618f-fb463a22b6ea",
+            "name": "Client - Create",
+            "description": "Cria um 'client'",
+            "url": "http://larangular/client",
+            "method": "POST",
+            "headers": "Authorization: Bearer qZQwm88z9nE2kQ5MiIre8j2R2hY1PL57kfzyLEZC\n",
+            "data": [{
+                    "key": "name",
+                    "value": "MÃ¡rio",
+                    "type": "text"
+                }, {
+                    "key": "responsible",
+                    "value": "Henrique",
+                    "type": "text"
+                }, {
+                    "key": "email",
+                    "value": "Mario@mario.com",
+                    "type": "text"
+                }, {
+                    "key": "phone",
+                    "value": "5555-5555",
+                    "type": "text"
+                }, {
+                    "key": "address",
+                    "value": "2453 Torphy Valleys Apt. ",
+                    "type": "text"
+                }, {
+                    "key": "obs",
+                    "value": "Soluta omnis cupiditate consequatur ex eveniet.",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "responses": [],
+            "version": 2
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "7743a8b7-0ca8-9768-c562-45c3f94a3b61",
+            "name": "Note - Delete",
+            "description": "",
+            "url": "http://larangular/project/note/50",
+            "method": "DELETE",
+            "headers": "Authorization: Bearer KuhQVJMMX76jAHoixHQmYUhddgs2EuZ3HH97Hok2\n",
+            "data": [{
+                    "key": "id",
+                    "value": "50",
+                    "type": "text"
+                }],
+            "dataMode": "urlencoded",
+            "timestamp": 0,
+            "responses": [],
+            "version": 2
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "80ee8337-7d7f-8774-0e5e-0e756d0c0a59",
+            "name": "Member - List",
+            "description": "",
+            "url": "http://larangular/project/10/member/list",
+            "method": "GET",
+            "headers": "Authorization: Bearer Ryk9EM1vygnWh5KgNj4AONNBp1NcAzJjRxBHIyEE\nid: 10\n",
+            "data": [{
+                    "key": "id",
+                    "value": "10",
+                    "type": "text"
+                }, {
+                    "key": "member_id",
+                    "value": "7",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "responses": [],
+            "version": 2
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "811be246-38cb-52a7-1234-49e35f592e96",
+            "name": "Task - update",
+            "description": "",
+            "url": "http://larangular/project/task/2",
+            "method": "PUT",
+            "headers": "Authorization: Bearer u05SGm8KMieYKA7YpvXXefZMeGZCS8psCaeXc0mQ\n",
+            "data": [{
+                    "key": "project_id",
+                    "value": "2",
+                    "type": "text"
+                }, {
+                    "key": "name",
+                    "value": "Teste Update",
+                    "type": "text"
+                }, {
+                    "key": "start_date",
+                    "value": "2015-12-13",
+                    "type": "text"
+                }, {
+                    "key": "due_date",
+                    "value": "2015-12-12",
+                    "type": "text"
+                }, {
+                    "key": "status",
+                    "value": "",
+                    "type": "text"
+                }, {
+                    "key": "id",
+                    "value": "2",
+                    "type": "text"
+                }],
+            "dataMode": "urlencoded",
+            "timestamp": 0,
+            "responses": [],
+            "version": 2
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "83b0e2e0-8edf-7905-770f-66f4de676dc7",
+            "name": "Project - delete",
+            "description": "",
+            "url": "http://larangular/project/7",
+            "method": "DELETE",
+            "headers": "Authorization: Bearer 5aiuK8dhjSnqHXbR6FOLkAugDbwGuW0SgMitF727\n",
+            "data": [{
+                    "key": "id",
+                    "value": "7",
+                    "type": "text"
+                }],
+            "dataMode": "urlencoded",
+            "timestamp": 0,
+            "version": 2,
+            "time": 1455824482788
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "88f90208-1ab5-4d27-7b52-55a86e81c503",
+            "name": "Client - Update",
+            "description": "Atualiza um client",
+            "url": "http://larangular/client/2",
+            "method": "PUT",
+            "headers": "Authorization: Bearer XXuLtEWJ8O0RGBWQ4933OZ1XicYLTT9UY3n2lOVr\n",
+            "data": [{
+                    "key": "name",
+                    "value": "Henrique",
+                    "type": "text"
+                }, {
+                    "key": "responsible",
+                    "value": "MÃ¡rio",
+                    "type": "text"
+                }, {
+                    "key": "email",
+                    "value": "marioo@henryxiii.com",
+                    "type": "text"
+                }, {
+                    "key": "phone",
+                    "value": "6666-6666",
+                    "type": "text"
+                }, {
+                    "key": "address",
+                    "value": "Any Address henry viii",
+                    "type": "text"
+                }, {
+                    "key": "obs",
+                    "value": "Soluta omnis cupiditate consequatur ex eveniet.",
+                    "type": "text"
+                }, {
+                    "key": "id",
+                    "value": "2",
+                    "type": "text"
+                }],
+            "dataMode": "urlencoded",
+            "timestamp": 0,
+            "version": 2,
+            "time": 1456166605712
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "906ccb64-417c-ba6f-d61a-ee769b327f76",
+            "name": "Project - create",
+            "description": "",
+            "url": "http://larangular/project",
+            "method": "POST",
+            "headers": "Authorization: Bearer idAI9JUerjW0zTIrAzbLPZWjDdfYjdMaogsPyWgy\n",
+            "data": [{
+                    "key": "owner_id",
+                    "value": "1",
+                    "type": "text"
+                }, {
+                    "key": "client_id",
+                    "value": "1",
+                    "type": "text"
+                }, {
+                    "key": "name",
+                    "value": "",
+                    "type": "text"
+                }, {
+                    "key": "description",
+                    "value": "2015-12-11",
+                    "type": "text"
+                }, {
+                    "key": "progress",
+                    "value": "53",
+                    "type": "text"
+                }, {
+                    "key": "status",
+                    "value": "1",
+                    "type": "text"
+                }, {
+                    "key": "due_date",
+                    "value": "2015-01-01",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "version": 2,
+            "time": 1455997346230
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "93f5b236-dfe8-6de9-e4ea-1c5f89cc1711",
+            "name": "File - Delete",
+            "description": "",
+            "url": "http://larangular/project/file/3",
+            "method": "DELETE",
+            "headers": "Authorization: Bearer rZQJxGPFgx19eDFbMHvXEnkVa7mjq3OZfp4in5lF\n",
+            "data": [],
+            "dataMode": "urlencoded",
+            "timestamp": 0,
+            "responses": [],
+            "version": 2
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "9ced9df7-be1c-c914-787c-98957d904371",
+            "name": "Member - Project - Create",
+            "description": "",
+            "url": "http://larangular/project/member",
+            "method": "POST",
+            "headers": "Authorization: Bearer Ryk9EM1vygnWh5KgNj4AONNBp1NcAzJjRxBHIyEE\n",
+            "data": [{
+                    "key": "id",
+                    "value": "10",
+                    "type": "text"
+                }, {
+                    "key": "member_id",
+                    "value": "6",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "responses": [],
+            "version": 2
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "b6c5dfc5-aae9-9ae0-00dc-8decc1445bdf",
+            "name": "Note - Create",
+            "description": "",
+            "url": "http://larangular/project/note",
+            "method": "POST",
+            "headers": "Authorization: Bearer i6Mb25YH6By9v6lzxYoiXmj6fvWwqSp6TZEnXlRX\n",
+            "data": [{
+                    "key": "project_id",
+                    "value": "2",
+                    "type": "text"
+                }, {
+                    "key": "title",
+                    "value": "Teste Store 34",
+                    "type": "text"
+                }, {
+                    "key": "note",
+                    "value": "2015-12-11",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "version": 2,
+            "time": 1455653156162
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "b8e320c8-0cc9-7495-b98a-f55e3e3de3b2",
+            "name": "Project - list",
+            "description": "",
+            "url": "http://larangular/project",
+            "method": "GET",
+            "headers": "Authorization: Bearer u05SGm8KMieYKA7YpvXXefZMeGZCS8psCaeXc0mQ\n",
+            "data": [{
+                    "key": "owner_id",
+                    "value": "1",
+                    "type": "text"
+                }, {
+                    "key": "client_id",
+                    "value": "1",
+                    "type": "text"
+                }, {
+                    "key": "name",
+                    "value": "Teste Create",
+                    "type": "text"
+                }, {
+                    "key": "description",
+                    "value": "2015-12-11",
+                    "type": "text"
+                }, {
+                    "key": "progress",
+                    "value": "53",
+                    "type": "text"
+                }, {
+                    "key": "status",
+                    "value": "1",
+                    "type": "text"
+                }, {
+                    "key": "due_date",
+                    "value": "2015-01-01",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "responses": [],
+            "version": 2
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "ba0090f3-1663-12d4-3e0e-0f368a4b0cd2",
+            "name": "File - Storage",
+            "description": "",
+            "url": "http://larangular/project/file",
+            "method": "POST",
+            "headers": "Authorization: Bearer XXuLtEWJ8O0RGBWQ4933OZ1XicYLTT9UY3n2lOVr\n",
+            "data": [{
+                    "key": "file",
+                    "value": "",
+                    "type": "file"
+                }, {
+                    "key": "name",
+                    "value": "teste08",
+                    "type": "text"
+                }, {
+                    "key": "project_id",
+                    "value": "4",
+                    "type": "text"
+                }, {
+                    "key": "description",
+                    "value": "teste",
+                    "type": "text"
+                }, {
+                    "key": "lable",
+                    "value": "Teste LBL",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "version": 2,
+            "time": 1456166515446
+        }, {
+            "collectionId": "c1e58644-528b-2d0e-a9f0-0bee63049bd2",
+            "id": "e1d5260e-7752-d086-1003-f23f3e47b4be",
+            "name": "Client - List",
+            "description": "Lista todos os clients",
+            "url": "http://larangular/client/",
+            "method": "GET",
+            "headers": "Authorization: Bearer c48d6bV2SOpeIW2EjLJhWvUAMBgzBnCvUT2EwZMJ\n",
+            "data": [{
+                    "key": "username",
+                    "value": "marioaquino31@hotmail.com",
+                    "type": "text"
+                }, {
+                    "key": "password",
+                    "value": "123456",
+                    "type": "text"
+                }, {
+                    "key": "client_id",
+                    "value": "app02",
+                    "type": "text"
+                }, {
+                    "key": "client_secret",
+                    "value": "secret",
+                    "type": "text"
+                }, {
+                    "key": "grant_type",
+                    "value": "password",
+                    "type": "text"
+                }],
+            "dataMode": "params",
+            "timestamp": 0,
+            "responses": [],
+            "version": 2
+        }]
+}
