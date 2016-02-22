@@ -1,0 +1,7 @@
+Caro tutor,
+
+Eu testei novamente todas as rotas e elas estão funcionando.
+No repositório há um arquivo JSON do postman com as rotas testadas.
+
+Att,
+Mário
