@@ -6,65 +6,53 @@ use Illuminate\Http\Request;
 use larang\Repositories\ClientRepository;
 use larang\Services\ClientService;
 
-class ClientController extends Controller {
+class ClientController extends Controller
+{
 
     private $repository;
     private $service;
 
-    public function __construct(ClientRepository $repository, ClientService $service) {
+    public function __construct(ClientRepository $repository, ClientService $service)
+    {
         $this->repository = $repository;
         $this->service = $service;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index() {
+    public function index()
+    {
         return $this->repository->all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) {
-
+    public function store(Request $request)
+    {
         return $this->service->create($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id) {
-        return $this->repository->with('projects')->find($id);
+    public function show($id)
+    {
+        try {
+            return $this->repository->with('projects')->find($id);
+        } catch (\Exception $e) {
+            return [false];
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request) {
-        return $this->service->update($request->all(), $request->id);
+    public function update($id, Request $request)
+    {
+        try {
+            return $this->service->update($request->all(), $id);
+        } catch (\Exception $e) {
+            return [false];
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request) {
-        return (string) $this->repository->delete($request->id);
+    public function destroy($id)
+    {
+        try {
+            return (string) $this->repository->delete($id);
+        } catch (\Exception $e) {
+            return [false];
+        }
     }
 
 }

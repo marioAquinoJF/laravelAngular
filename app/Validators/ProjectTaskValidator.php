@@ -9,10 +9,10 @@ use Prettus\Validator\LaravelValidator;
  *
  * @author Mario
  */
-class ProjectTaskValidator extends LaravelValidator {
+class ProjectTaskValidator extends LaravelValidator
+{
 
     protected $rules = [
-        'project_id' => 'required|integer|exists:projects,id',
         'name' => 'required:max:255',
         'status' => 'required',
         'start_date' => 'required|date',

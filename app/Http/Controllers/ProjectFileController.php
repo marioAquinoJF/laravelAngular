@@ -17,81 +17,34 @@ class ProjectFileController extends Controller
     {
         $this->repository = $repository;
         $this->service = $sevice;
+        $this->middleware('CheckProjectPermitions', ['only' =>
+            [
+                'store',
+                'destroy',
+                'index'
+            ]
+                ]
+        );
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index($id)
     {
-        //
+        return $this->repository->skipPresenter()->findWhere(['project_id' => $id]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store($id, Request $request)
     {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
         $file = $request->file('file');
         $extension = $file->getClientOriginalExtension();
-        $name = str_replace(".$extension", '', $file->getClientOriginalName());
         $data['file'] = $file;
         $data['extension'] = $extension;
-        $data['name'] = $name;
-        $data['project_id'] = $request->project_id;
+        $data['name'] = $request->name . ".$extension";
+        $data['project_id'] = $id;
         $data['lable'] = $request->lable ? $request->lable : null;
         $data['description'] = $request->description ? $request->description : null;
 
         return $this->service->createFile($data);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -100,9 +53,13 @@ class ProjectFileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $file)
     {
-        return [$this->service->deleteFile($id)];
+        try {
+            return [$this->service->deleteFile($file)];
+        } catch (\Exception $e) {
+            return [false];
+        }
     }
 
 }

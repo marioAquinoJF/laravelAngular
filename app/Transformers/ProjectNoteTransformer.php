@@ -12,6 +12,7 @@ class ProjectNoteTransformer extends TransformerAbstract
     {
         return [
             'id' => $model->id,
+            'project_id' => $model->project_id,
             'title' => $model->title,
             'note' => $model->note,
             'created_at' => $model->created_at,

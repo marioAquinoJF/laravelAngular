@@ -34,12 +34,21 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
 
     public function isOwner($userId, $projectId)
     {
-        return count(Project::where(['id' => $projectId, 'owner_id' => $userId])) > 0;
+        return !(count(Project::where(['id' => $projectId, 'owner_id' => $userId])->get())) ? false : true;
     }
 
     public function hasMember($memberId, $projectId)
     {
-        return Project::find($projectId)->members()->where('user_id', $memberId)->limit(1)->get();
+        return $this->skipPresenter()->find($projectId)->members()->where('user_id', $memberId)->limit(1)->get();
+    }
+
+    public function checkProjectPermitions($projectId)
+    {
+        $userId = \Authorizer::getResourceOwnerId();
+        if ($this->isOwner($userId, $projectId) or $this->checkProjectMember($userId, $projectId)) {
+            return true;
+        }
+        return false;
     }
 
     public function presenter()
@@ -49,9 +58,15 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
 
     public function getFullProject($id)
     {
-        return $this->with(['owner', 'client', 'tasks', 'notes', 'members'])->find($id);
+        return $this->skipPresenter->with(['owner', 'client', 'tasks', 'notes', 'members'])->find($id);
     }
 
+    public function checkProjectMember($user_id, $project_id)
+    {
+        return count($this->hasMember($user_id, $project_id)) > 0 ? true : false;
+    }
+
+    // methods with relations
     public function getMember($member_id, $id)
     {
         return Project::find($id)->members()->where('user_id', $member_id)->limit(1)->get();
@@ -75,11 +90,6 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
     public function removeNotes($projectId)
     {
         return Project::find($projectId)->notes()->delete();
-    }
-
-    public function removeFiles($param)
-    {
-        return $this->repository->find($id)->members()->detach();
     }
 
     public function removeProject($projectId)

@@ -8,8 +8,10 @@ use Prettus\Repository\Traits\TransformableTrait;
 
 class ProjectFile extends Model implements Transformable
 {
+
     use TransformableTrait;
 
+    protected $table = 'project_files';
     protected $fillable = [
         'name',
         'lable',
@@ -17,10 +19,9 @@ class ProjectFile extends Model implements Transformable
         'extension',
         'project_id'
     ];
-    public function project() {
-        return $this->belongsTo(Project::class);
-    }
-    public function delete() {
-     
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'project_id', 'id');
     }
 }

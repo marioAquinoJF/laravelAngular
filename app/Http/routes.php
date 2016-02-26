@@ -14,31 +14,25 @@ Route::controllers([
 ]);
 
 Route::group(['middleware' => 'oauth'], function() {
+    Route::resource('project', 'ProjectController', ['except' => ['edit', 'create']]);
     Route::resource('client', 'ClientController', ['except' => ['edit', 'create']]);
+    Route::group(['prefix' => 'project'], function() {
+        Route::resource('{project}/note', 'ProjectNoteController', ['except' => ['edit', 'create']]);
+        Route::resource('{project}/task', 'ProjectTaskController', ['except' => ['edit', 'create']]);
+        Route::resource('{project}/file', 'ProjectFileController', ['except' => ['edit', 'create']]);
+        
 
-    Route::group(['middleware' => 'CheckProjectOwner'], function() {
+        Route::post('{project}/member/{member}', "ProjectController@newMember");
+        Route::get('{project}/member', "ProjectController@getMembers");
+        Route::get('{project}/member/{member}', "ProjectController@getMember");
+        Route::delete('{project}/member/{member}', "ProjectController@removeMember");
+        Route::post('{project}/user/isMember', "ProjectController@isMember");
 
+        //tasks
+    //    Route::get('{project}/tasks', "ProjectController@getTasks");
+     //   Route::get('{project}/task/{task_id}', "ProjectController@getTask");
+    //    Route::resource('{id}/member', "ProjectMemberController", ['except' => ['edit','store', 'create', 'destroy']]);
 
-        Route::resource('project', 'ProjectController', ['except' => ['edit', 'create']]);
-
-        Route::group(['prefix' => 'project'], function() {
-            Route::resource('note', 'ProjectNoteController', ['except' => ['edit', 'create']]);
-            Route::resource('task', 'ProjectTaskController', ['except' => ['edit', 'create']]);
-            Route::resource('file', 'ProjectFileController', ['except' => ['edit', 'create']]);
-
-            // members
-
-            Route::post('member', "ProjectController@newMember");
-            Route::get('{id}/member/list', "ProjectController@getMembers");
-            Route::get('{id}/member/{menberId}', "ProjectMemberController@show");
-            Route::delete('member/delete', "ProjectController@removeMember");
-            Route::post('user/isMember', "ProjectController@isMember");
-
-            //tasks
-            Route::get('{id}/tasks', "ProjectController@getTasks");
-            Route::get('{id}/task/{task_id}', "ProjectController@getTask");
-            //files
-            
-        });
+        //files
     });
 });

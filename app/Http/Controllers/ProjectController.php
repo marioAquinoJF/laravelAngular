@@ -16,110 +16,99 @@ class ProjectController extends Controller
     {
         $this->repository = $repository;
         $this->service = $sevice;
+        $this->middleware('CheckProjectOwner', ['only' =>
+            [
+                'removeMember',
+                'newMember',
+                'destroy',
+            ]
+                ]
+        );
+
+        $this->middleware('CheckProjectPermitions', ['only' =>
+            [
+                'getMembers',
+                'getMember',
+                'getTask',
+                'getFiles',
+                'getFile',
+                'show',
+                'update',
+            ]
+                ]
+        );
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return $this->repository->all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-
         return $this->service->create($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-
-        return $this->repository->getFullProject($id);
+        try {
+            return $this->repository->find($id);
+        } catch (\Exception $ex) {
+            return [false];
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
+    public function update($id, Request $request)
     {
-        return $this->service->update($request->all(), $request->id);
+        try {
+            return $this->service->update($request->all(), $id);
+        } catch (Exception $ex) {
+            return [false];
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        return [$this->service->delete($request->id)];
+        try{
+            return $this->service->delete($id);
+        } catch (Exception $ex) {
+            return [false];
+        }
+        
     }
 
-    // METHODS TO RELATIONS WITH MEMBERS   
+// METHODS TO RELATIONS WITH MEMBERS   
     public function getMembers($id)
     {
-        return $this->repository->find($id)['data']['members'];
+        return $this->repository->skipPresenter()->find($id)->members;
     }
 
-    public function getMember($project_id, $member_id)
+    public function getMember($id, $member)
     {
-        return $this->repository->hasMember($member_id, $project_id);
+        return $this->repository->skipPresenter()->hasMember($member, $id);
     }
 
-    public function newMember(Request $request)
+    public function newMember($id, $member)
     {
-        return [$this->service->addMember($request->id, $request->member_id)];
+        return [$this->service->addMember($id, $member)];
     }
 
-    public function removeMember(Request $request)
+    public function removeMember($id, $member)
     {
-        return $this->service->removeMember($request->id, $request->member_Id);
+        return $this->service->removeMember($id, $member);
     }
 
-    public function isMember($project_id, $user_id)
-    {
-        $member = $this->repository->hasMember($user_id, $project_id);
-        if (is_array($member)) {
-            return count($member) === 0 ? false : $member;
-        }
-        return false;
-    }
-
-    // METHODS TO RELATIONS WITH TASKS
-    public function getTasks($id)
-    {
-        return $this->repository->find($id)['data']['tasks'];
-    }
+// METHODS TO RELATIONS WITH TASKS
 
     public function getTask($id, $task_id)
     {
         return $this->repository->getTask($id, $task_id);
     }
 
-    // METHODS TO RELATIONS WITH Files
+// METHODS TO RELATIONS WITH Files
     public function getFiles($id)
     {
-        return $this->repository->find($id)['data']['files'];
+        return $this->repository->skipPresenter->find($id)->files();
     }
 
     public function getFile($id, $task_id)

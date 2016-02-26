@@ -5,7 +5,7 @@ namespace larang\Http\Middleware;
 use Closure;
 use larang\Repositories\ProjectRepository;
 
-class CheckProjectOwner
+class CheckProjectPermitions
 {
 
     protected $repository;
@@ -17,8 +17,7 @@ class CheckProjectOwner
 
     public function handle($request, Closure $next)
     {
-        $userId = \Authorizer::getResourceOwnerId();
-        if (!$this->repository->isOwner($userId, $request->project)):
+        if (!$this->repository->checkProjectPermitions($request->project)):
             return ['error' => 'Access forbiden or inexistent project!'];
         endif;
         return $next($request);

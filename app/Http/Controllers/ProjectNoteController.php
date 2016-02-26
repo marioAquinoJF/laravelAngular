@@ -16,50 +16,44 @@ class ProjectNoteController extends Controller
     {
         $this->repository = $repository;
         $this->service = $sevice;
+        $this->middleware('CheckProjectOwner', ['only' =>
+            [
+                'destroy'
+            ]
+                ]
+        );
+
+        $this->middleware('CheckProjectPermitions', ['only' =>
+            [
+                'index',
+                'store',
+                'getTasks',
+                'show',
+                'update',
+            ]
+                ]
+        );
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($id)
     {
         return $this->repository->findWhere(['project_id' => $id]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store($project_id, Request $request)
     {
-        return $this->service->create($request->all());
+        return $this->service->create(array_merge($request->all(), ['project_id' => $project_id]));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id, $noteId)
+    public function show($id, $note)
     {
         return $this->repository->findWhere(['project_id' => $id, 'id' => $noteId]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
+    public function update($project_id, $note, Request $request)
     {
-        return $this->service->update($request->all(), $request->id);
+        return $this->service->update(array_merge($request->all(), ['project_id' => $project_id]), $note);
     }
 
     /**
@@ -70,10 +64,10 @@ class ProjectNoteController extends Controller
      */
     public function destroy(Request $request)
     {
-        if ($this->repository->exists($request->id)) {
-            return (string) $this->repository->delete($request->id);
+        if ($this->repository->exists($request->note)) {
+            return [$this->repository->delete($request->note)];
         }
-        return 0;
+        return [false];
     }
 
 }

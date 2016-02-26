@@ -4,24 +4,21 @@ namespace larang\Services;
 
 use larang\Entities\Project;
 use larang\Repositories\ProjectRepository;
+use larang\Services\ProjectFileService;
 use larang\Validators\ProjectValidator;
-use Illuminate\Contracts\Filesystem\Factory as Storage;
-use Illuminate\Filesystem\Filesystem;
 
 class ProjectService extends Service
 {
 
     protected $repository;
     protected $validator;
-    private $fileSystem;
-    private $storage;
+    protected $serviceFile;
 
-    public function __construct(ProjectRepository $repository, ProjectValidator $validator, Filesystem $fileSystem, Storage $storage)
+    public function __construct(ProjectRepository $repository, ProjectFileService $serviceFile, ProjectValidator $validator)
     {
         $this->repository = $repository;
         $this->validator = $validator;
-        $this->fileSystem = $fileSystem;
-        $this->storage = $storage;
+        $this->serviceFile = $serviceFile;
     }
 
     public function addMember($project_id, $user_id)
@@ -35,7 +32,7 @@ class ProjectService extends Service
 
     public function removeMember($projectId, $userId)
     {
-        return $this->repository->find($projectId)->members()->detach($userId);
+        return $this->repository->skipPresenter()->find($projectId)->members()->detach($userId);
     }
 
     public function removeTasks($projectId, $userId)
@@ -45,7 +42,14 @@ class ProjectService extends Service
 
     public function delete($id)
     {
-        return $this->repository->removeProject($id);
+        $files = $this->repository->skipPresenter()->find($id)->files;
+        foreach ($files as $file) {
+            $this->serviceFile->deleteFile($file->id);
+        }
+        if(count($this->repository->skipPresenter()->find($id)->files) === 0){
+            return $this->repository->removeProject($id);
+        }
+        return [false];
     }
 
 }
