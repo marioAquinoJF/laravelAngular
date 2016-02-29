@@ -13,7 +13,6 @@ class ProjectFileValidator extends LaravelValidator
 {
 
     protected $rules = [
-
         'file' => 'required|mimes:jpg,jpeg,bmp,png,txt',
         'name' => 'required|max:255',
         'description' => 'required',

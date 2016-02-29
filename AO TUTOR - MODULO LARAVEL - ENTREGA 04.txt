@@ -1,7 +1,12 @@
 Caro tutor,
 
-Eu testei novamente todas as rotas e elas est�o funcionando.
-No reposit�rio h� um arquivo JSON do postman com as rotas testadas.
+Verifiquei que havia um problema na validação que havia feito para o upload de arquivos.
+Como os dados eram estruturados no Controller, ao executar o Servive, a validação sempre passava.
+Movi a lógica para o Service, validando os dados antes do tratamento.
+A validação foi corrigida, porém o redirecionamento que você comentou, até agora, não ocorreu comigo.
+Por via das dúvidas, verifiquei todas as rotas, e nenhuma apontava para o endereço que você informou.
+Desculpe pelo recorrente problema, que espero que tenha sido sanado.
 
-Att,
-M�rio
+Obrigado pela atenção,
+Mário
+ P.S.: não há um meio de entrar em contarto com o tutor, pois não entendi de primeira que o problema era na validação.
