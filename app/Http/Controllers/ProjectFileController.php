@@ -34,17 +34,7 @@ class ProjectFileController extends Controller
 
     public function store($id, Request $request)
     {
-
-        $file = $request->file('file');
-        $extension = $file->getClientOriginalExtension();
-        $data['file'] = $file;
-        $data['extension'] = $extension;
-        $data['name'] = $request->name . ".$extension";
-        $data['project_id'] = $id;
-        $data['lable'] = $request->lable ? $request->lable : null;
-        $data['description'] = $request->description ? $request->description : null;
-
-        return $this->service->createFile($data);
+        return $this->service->create(array_merge($request->all(),['project_id'=>$id]));
     }
 
     /**

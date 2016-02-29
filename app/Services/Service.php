@@ -13,13 +13,9 @@ use Prettus\Validator\Exceptions\ValidatorException;
 class Service
 {
 
-    protected $repository;
-    protected $validator;
-
-    public function __construct($repository, $validator)
+    public function __construct()
     {
-        $this->repository = $repository;
-        $this->validator = $validator;
+        
     }
 
     public function create(array $data)
