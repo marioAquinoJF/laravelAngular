@@ -6,10 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Laravel</title>
         @if(Config::get('app.debug'))
-        <link href="{{ asset('build/css/vendor/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('build/css/vendor/bootstrap-theme.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('build/css/vendor/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{ asset('build/css/vendor/bootstrap-theme.min.css')}}" rel="stylesheet">
         @else
-        <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
+        <link href="{{ elixir('css/all.css')}}" rel="stylesheet">
         @endif
 
 
@@ -50,7 +50,7 @@
                         @endif
                         @else
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ auth()->user()->name }} <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ auth()->user()->name}} <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="auth/logout">Logout</a></li>
                             </ul>
@@ -66,25 +66,41 @@
         <div ng-view></div>
 
         @if(Config::get('app.debug')) 
-        <script src="{{ asset('build/js/vendor/jquery.min.js') }}"></script>
-        <script src="{{ asset('build/js/vendor/angular.min.js') }}"></script>
-        <script src="{{ asset('build/js/vendor/angular-route.min.js') }}"></script>
-        <script src="{{ asset('build/js/vendor/angular-resource.min.js') }}"></script>
-        <script src="{{ asset('build/js/vendor/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('build/js/vendor/angular-messages.min.js') }}"></script>
-        <script src="{{ asset('build/js/vendor/ui-bootstrap.min.js') }}"></script>
-        <script src="{{ asset('build/js/vendor/navbar.min.js') }}"></script>
+        <script src="{{ asset('build/js/vendor/jquery.min.js')}}"></script>
+        <script src="{{ asset('build/js/vendor/angular.min.js')}}"></script>
+        <script src="{{ asset('build/js/vendor/angular-route.min.js')}}"></script>
+        <script src="{{ asset('build/js/vendor/angular-resource.min.js')}}"></script>
+        <script src="{{ asset('build/js/vendor/bootstrap.min.js')}}"></script>
+        <script src="{{ asset('build/js/vendor/angular-messages.min.js')}}"></script>
+        <script src="{{ asset('build/js/vendor/ui-bootstrap.min.js')}}"></script>
+        <script src="{{ asset('build/js/vendor/navbar.min.js')}}"></script>
         <!-- OAuth2 -->
-        <script src="{{ asset('build/js/vendor/angular-cookies.min.js') }}"></script>
-        <script src="{{ asset('build/js/vendor/query-string.js') }}"></script>
-        <script src="{{ asset('build/js/vendor/angular-oauth2.min.js') }}"></script>
+        <script src="{{ asset('build/js/vendor/angular-cookies.min.js')}}"></script>
+        <script src="{{ asset('build/js/vendor/query-string.js')}}"></script>
+        <script src="{{ asset('build/js/vendor/angular-oauth2.min.js')}}"></script>
 
-        <script src="{{ asset('build/js/app.js') }}"></script>
-        <script src="{{ asset('build/js/controllers/login.js') }}"></script>
-        <script src="{{ asset('build/js/controllers/home.js') }}"></script>
+        <script src="{{ asset('build/js/app.js')}}"></script>
+
+        <!-- Controllers -->
+        <script src="{{ asset('build/js/controllers/login.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/home.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/client/clientList.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/client/clientNew.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/client/clientEdit.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/client/clientRemove.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/client/clientShow.js')}}"></script>
+        
+        <script src="{{ asset('build/js/controllers/projectNote/projectNoteList.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/projectNote/projectNoteNew.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/projectNote/projectNoteEdit.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/projectNote/projectNoteRemove.js')}}"></script>
+        <!-- Services -->
+        <script src="{{ asset('build/js/services/client.js')}}"></script>
+        <script src="{{ asset('build/js/services/projectNote.js')}}"></script>
+
         @else
 
-        <script src="{{ elixir('js/all.js') }}"></script>
+        <script src="{{ elixir('js/all.js')}}"></script>
         @endif
     </body>
 </html>

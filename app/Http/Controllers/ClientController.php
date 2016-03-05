@@ -20,7 +20,7 @@ class ClientController extends Controller
 
     public function index()
     {
-        return $this->repository->all();
+        return $this->repository->skipPresenter()->all();
     }
 
     public function store(Request $request)
@@ -31,7 +31,7 @@ class ClientController extends Controller
     public function show($id)
     {
         try {
-            return $this->repository->with('projects')->find($id);
+            return $this->repository->skipPresenter()->with('projects')->find($id);
         } catch (\Exception $e) {
             return [false];
         }
@@ -40,16 +40,16 @@ class ClientController extends Controller
     public function update($id, Request $request)
     {
         try {
-            return $this->service->update($request->all(), $id);
+            return ['resp'=>(string)$this->service->update($request->all(), $id)];
         } catch (\Exception $e) {
-            return [false];
+            return ['resp'=>'0'];
         }
     }
 
     public function destroy($id)
     {
         try {
-            return (string) $this->repository->delete($id);
+            return $this->repository->delete($id) ? 'ok' : 'not ok';
         } catch (\Exception $e) {
             return [false];
         }

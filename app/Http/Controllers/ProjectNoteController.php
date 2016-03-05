@@ -35,10 +35,9 @@ class ProjectNoteController extends Controller
         );
     }
 
-
     public function index($id)
     {
-        return $this->repository->findWhere(['project_id' => $id]);
+        return $this->repository->skipPresenter()->findWhere(['project_id' => $id]);
     }
 
     public function store($project_id, Request $request)
@@ -46,14 +45,14 @@ class ProjectNoteController extends Controller
         return $this->service->create(array_merge($request->all(), ['project_id' => $project_id]));
     }
 
-    public function show($id, $note)
+    public function show($id, $noteId)
     {
-        return $this->repository->findWhere(['project_id' => $id, 'id' => $noteId]);
+        return $this->repository->skipPresenter()->find($noteId);
     }
 
-    public function update($project_id, $note, Request $request)
+    public function update($project_id, $idNote, Request $request)
     {
-        return $this->service->update(array_merge($request->all(), ['project_id' => $project_id]), $note);
+        return $this->service->update(array_merge($request->all(), ['project_id' => $project_id]), $idNote);
     }
 
     /**
@@ -62,10 +61,10 @@ class ProjectNoteController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id, $idNote)
     {
-        if ($this->repository->exists($request->note)) {
-            return [$this->repository->delete($request->note)];
+        if ($this->repository->exists($idNote)) {
+            return ['resp'=>$this->repository->delete($idNote)];
         }
         return [false];
     }

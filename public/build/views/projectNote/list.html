@@ -1,0 +1,30 @@
+<div class="container-fluid" ng-controller="ProjectNoteListController">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Notas de um projeto</div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>titulo</th>
+                                <th>Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="o in projectNotes">
+                                <td>{{o.title}}</td>
+                                <td>{{o.note}}</td>
+                                <td>
+                                    <a ng-href="#/project/{{o.project_id}}/notes/{{o.id}}/edit" class="btn btn-sm btn-primary">Editar</a>
+                                    <a ng-href="#/project/{{o.project_id}}/notes/{{o.id}}/remove" class="btn btn-sm btn-danger">Excluir</a>
+                                    <a ng-href="#/project/{{o.project_id}}/notes/{{o.id}}/show" class="btn btn-sm btn-danger">Infos</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

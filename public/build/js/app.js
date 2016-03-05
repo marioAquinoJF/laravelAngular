@@ -1,8 +1,20 @@
-var app = angular.module('app', ['ngRoute', 'angular-oauth2', 'app.controllers']);
+var app = angular.module('app', ['ngRoute', 'angular-oauth2', 'app.controllers', 'app.services']);
 
 angular.module('app.controllers', ['ngMessages', 'angular-oauth2']);
+angular.module('app.services', ['ngResource']);
 
-app.config(['$routeProvider', 'OAuthProvider', function ($routeProvider, OAuthProvider) {
+app.provider('appConfig', function () {
+    var config = {
+        baseUrl: 'http://larangular'
+    };
+    return {
+        config: config,
+        $get: function () {
+            return config;
+        }
+    };
+});
+app.config(['$routeProvider', 'OAuthProvider', 'OAuthTokenProvider', 'appConfigProvider', function ($routeProvider, OAuthProvider, OAuthTokenProvider, appConfigProvider) {
         $routeProvider
                 .when('/login', {
                     templateUrl: 'build/views/login.html',
@@ -11,12 +23,54 @@ app.config(['$routeProvider', 'OAuthProvider', function ($routeProvider, OAuthPr
                 .when('/home', {
                     templateUrl: 'build/views/home.html',
                     controller: 'HomeController'
+                })
+                .when('/clients', {
+                    templateUrl: 'build/views/client/list.html',
+                    controller: 'ClientListController'
+                })
+                .when('/clients/new', {
+                    templateUrl: 'build/views/client/new.html',
+                    controller: 'ClientNewController'
+                })
+                .when('/clients/:id/edit', {
+                    templateUrl: 'build/views/client/edit.html',
+                    controller: 'ClientEditController'
+                })
+                .when('/clients/:id/remove', {
+                    templateUrl: 'build/views/client/remove.html',
+                    controller: 'ClientRemoveController'
+                })
+                .when('/clients/:id/show', {
+                    templateUrl: 'build/views/client/show.html',
+                    controller: 'ClientShowController'
+                })
+                .when('/project/:id/notes', {
+                    templateUrl: 'build/views/projectNote/list.html',
+                    controller: 'ProjectNoteListController'
+                })
+                .when('/project/:id/notes/new', {
+                    templateUrl: 'build/views/projectNote/new.html',
+                    controller: 'ProjectNoteNewController'
+                })
+                .when('/project/:id/notes/:idNote/edit', {
+                    templateUrl: 'build/views/projectNote/edit.html',
+                    controller: 'ProjectNoteEditController'
+                })
+                .when('/project/:id/notes/:idNote/remove', {
+                    templateUrl: 'build/views/projectNote/remove.html',
+                    controller: 'ProjectNoteRemoveController'
                 });
         OAuthProvider.configure({
-            baseUrl: 'http://larangular',
+            baseUrl: appConfigProvider.config.baseUrl,
             clientId: 'app02',
-            clientSecret: 'secret', // optional
+            clientSecret: 'secret', 
             grantPath: 'oauth/access_token'
+        });
+        OAuthTokenProvider.configure({
+            name: 'token',
+            options: {
+                secure: false
+            }
         });
     }]);
 
