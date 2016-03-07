@@ -48,11 +48,7 @@ class ClientController extends Controller
 
     public function destroy($id)
     {
-        try {
-            return $this->repository->delete($id) ? 'ok' : 'not ok';
-        } catch (\Exception $e) {
-            return [false];
-        }
+        return $this->repository->delete($id) ? 'ok' : 'not ok';       
     }
 
 }

@@ -63,10 +63,9 @@ class ProjectNoteController extends Controller
      */
     public function destroy($id, $idNote)
     {
-        if ($this->repository->exists($idNote)) {
+        
             return ['resp'=>$this->repository->delete($idNote)];
-        }
-        return [false];
+                
     }
 
 }

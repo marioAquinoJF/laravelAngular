@@ -1,7 +1,10 @@
 angular.module('app.controllers')
-        .controller('ClientShowController', ['$scope', '$location', '$routeParams', 'Client',
-            function ($scope, $location, $routeParams, Client) {
-                $scope.client = new Client.get({id: $routeParams.id});
+        .controller('ProjectNoteShowController', ['$scope', '$routeParams', 'ProjectNote',
+            function ($scope, $routeParams, ProjectNote) {
+                $scope.projectNote  = new ProjectNote.get({
+                    id: $routeParams.id,
+                    idNote: $routeParams.idNote
+                });
                 
             }
         ]);

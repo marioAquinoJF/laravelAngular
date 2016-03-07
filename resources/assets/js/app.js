@@ -59,6 +59,10 @@ app.config(['$routeProvider', 'OAuthProvider', 'OAuthTokenProvider', 'appConfigP
                 .when('/project/:id/notes/:idNote/remove', {
                     templateUrl: 'build/views/projectNote/remove.html',
                     controller: 'ProjectNoteRemoveController'
+                })
+                .when('/project/:id/notes/:idNote/show', {
+                    templateUrl: 'build/views/projectNote/show.html',
+                    controller: 'ProjectNoteShowController'
                 });
         OAuthProvider.configure({
             baseUrl: appConfigProvider.config.baseUrl,
