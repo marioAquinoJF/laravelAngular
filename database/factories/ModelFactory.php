@@ -36,8 +36,8 @@ $factory->define(larang\Entities\Project::class, function (Faker\Generator $fake
         'client_id' => $faker->numberBetween(1, 11),
         'name' => $faker->word,
         'description' => $faker->paragraph,
-        'progress' => rand(1,3),
-        'status' => rand(1, 3),
+        'progress' => rand(0,2),
+        'status' => rand(0, 1),
         'due_date' => $faker->date('now')
     ];
 });
