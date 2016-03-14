@@ -1,0 +1,14 @@
+Agora que já fizemos o CRUD de project note, você deverá fazer o CRUD de project.
+
+Use o conhecimento que aprendeu para passar o owner_id (usuário autenticado) 
+no cadastro e use o ng-select e ng-options para mostrar os clients a serem incluídos no projeto.
+
+As rotas deste CRUD serão semelhante ao formato que usamos no CRUD de client.
+
+        'owner_id',
+        'client_id',
+        'name',
+        'description',
+        'progress',
+        'status',
+        'due_date'

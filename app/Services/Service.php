@@ -22,7 +22,6 @@ class Service
     {
         try {
             $this->validator->with($data)->passesOrFail();
-
             return $this->repository->create($data);
         } catch (ValidatorException $ex) {
             return [

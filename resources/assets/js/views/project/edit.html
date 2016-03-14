@@ -1,0 +1,91 @@
+<div class="container-fluid" ng-controller="ProjectEditController">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h2>Editar Projeto</h2></div>
+                <div class="panel-body">
+                    <form name='projectEditForm' class="form-horizontal" role="form" ng-submit="update();">
+                        <div class="form-group" ng-class="{'has-error': !projectEditForm.name.$valid && projectEditForm.name.$touched}">
+                            <label class="col-md-4 control-label">Nome:</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="name" ng-model="project.name" required="required">
+                                <div ng-messages="projectEditForm.name.$error" class="help-block" ng-show="projectEditForm.name.$touched">
+                                    <div ng-message="required">Campo Obrigatório!</div>
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="form-group" ng-class="{'has-error': !projectEditForm.description.$valid && projectEditForm.description.$touched}">
+                            <label class="col-md-4 control-label">Descrição</label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" name="description" ng-model="project.description" required="required"></textarea>
+                                <div ng-messages="projectEditForm.description.$error" class="help-block" ng-show="projectEditForm.description.$touched">
+                                    <div ng-message="required">Campo Obrigatório!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': !projectEditForm.client.$valid && projectEditForm.client.$touched}">
+                            <label class="col-md-4 control-label">Cliente</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="client" required="required" 
+                                        ng-options="c.name for c in clients track by c.id"
+                                        ng-model="client">
+                                </select>
+                                <div ng-messages="projectEditForm.cli.$error" class="help-block" ng-show="projectEditForm.client.$touched">
+                                    <div ng-message="required">Você deve escolher um cliente!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Progresso</label>
+                            <div class="col-md-6">
+                                <div class="row-group">
+                                    <label class="">Iniciado</label><input type="radio" class="radio-inline" name="progress" ng-model="project.progress" ng-value="0">
+                                </div>
+                                <div class="row-group">
+                                    <label class="">Em andamento</label><input type="radio" class="radio-inline" name="progress" ng-model="project.progress" ng-value="1" >
+                                </div>
+                                <div class="row-group">
+                                    <label class="">Concluído</label><input type="radio" class="radio-inline" name="progress" ng-model="project.progress" ng-value="2" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-md-4 control-label">Status</label>
+                            <div class="col-md-6">
+                                <div class="row-group">
+                                    <label class="">Em desenvolvimento</label><input type="radio" class="radio-inline" name="status" ng-model="project.status" value="0" >
+                                </div>
+                                <div class="row-group">
+                                    <label class="">Entregue</label><input type="radio" class="radio-inline" name="status" ng-model="project.status" value="1" >
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': !projectEditForm.due_date.$valid && projectEditForm.due_date.$touched}">
+                            <label class="col-md-4 control-label" for="due_date">Data de término: </label>
+                            <div class="col-md-6">
+                                <datepicker date-format="dd-MM-yyyy" selector="form-control">
+                                    <div class="input-group">
+                                        <input class="form-control"  name="due_date" ng-model="due_date" required="required" placeholder="Selecione uma data para o fim do projeto!"/>
+                                        <span class="input-group-addon" style="cursor: pointer">
+                                            <i class="fa fa-lg fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </datepicker>
+                                <div ng-messages="projectEditForm.due_date.$error" class="help-block" ng-show="projectEditForm.due_date.$touched">
+                                    <div ng-message="required">Campo Obrigatório!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-5">
+                                <button type="submit" class="btn btn-primary">Atualizar</button>
+                                <a href="#/projects" class="btn btn-primary">Voltar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

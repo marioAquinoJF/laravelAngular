@@ -8,6 +8,8 @@
         @if(Config::get('app.debug'))
         <link href="{{ asset('build/css/vendor/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{ asset('build/css/vendor/bootstrap-theme.min.css')}}" rel="stylesheet">
+        <link href="{{ asset('build/css/vendor/font-awesome.min.css')}}" rel="stylesheet">
+        <link href="{{ asset('build/css/angular-datepicker.min.css')}}" rel="stylesheet">
         @else
         <link href="{{ elixir('css/all.css')}}" rel="stylesheet">
         @endif
@@ -38,6 +40,10 @@
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="nav navbar-nav">
                         <li><a href='#/home'>Welcome</a></li>
+
+                        <li><a href='#/clients'>Clientes</a></li>
+                        <li><a href='#/projects'>Projetos</a></li>
+
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
@@ -74,12 +80,14 @@
         <script src="{{ asset('build/js/vendor/angular-messages.min.js')}}"></script>
         <script src="{{ asset('build/js/vendor/ui-bootstrap.min.js')}}"></script>
         <script src="{{ asset('build/js/vendor/navbar.min.js')}}"></script>
+        <script src="{{ asset('build/js/scripts/angular-datepicker.min.js')}}"></script>
         <!-- OAuth2 -->
         <script src="{{ asset('build/js/vendor/angular-cookies.min.js')}}"></script>
         <script src="{{ asset('build/js/vendor/query-string.js')}}"></script>
         <script src="{{ asset('build/js/vendor/angular-oauth2.min.js')}}"></script>
 
         <script src="{{ asset('build/js/app.js')}}"></script>
+
 
         <!-- Controllers -->
         <script src="{{ asset('build/js/controllers/login.js')}}"></script>
@@ -89,15 +97,23 @@
         <script src="{{ asset('build/js/controllers/client/clientEdit.js')}}"></script>
         <script src="{{ asset('build/js/controllers/client/clientRemove.js')}}"></script>
         <script src="{{ asset('build/js/controllers/client/clientShow.js')}}"></script>
-        
+        <!-- Project Note -->
         <script src="{{ asset('build/js/controllers/projectNote/projectNoteList.js')}}"></script>
         <script src="{{ asset('build/js/controllers/projectNote/projectNoteNew.js')}}"></script>
         <script src="{{ asset('build/js/controllers/projectNote/projectNoteEdit.js')}}"></script>
         <script src="{{ asset('build/js/controllers/projectNote/projectNoteRemove.js')}}"></script>
         <script src="{{ asset('build/js/controllers/projectNote/projectNoteShow.js')}}"></script>
+        <!-- Project -->
+        <script src="{{ asset('build/js/controllers/project/projectList.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/project/projectNew.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/project/projectEdit.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/project/projectRemove.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/project/projectShow.js')}}"></script> 
         <!-- Services -->
         <script src="{{ asset('build/js/services/client.js')}}"></script>
         <script src="{{ asset('build/js/services/projectNote.js')}}"></script>
+        <script src="{{ asset('build/js/services/project.js')}}"></script>
+        <script src="{{ asset('build/js/services/userloggedin.js')}}"></script>
 
         @else
 

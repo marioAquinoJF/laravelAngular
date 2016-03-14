@@ -41,7 +41,7 @@ class ProjectController extends Controller
 
     public function index()
     {
-        return $this->repository->all();
+        return $this->repository->skipPresenter()->all();
     }
 
     public function store(Request $request)
@@ -52,7 +52,7 @@ class ProjectController extends Controller
     public function show($id)
     {
         try {
-            return $this->repository->find($id);
+            return $this->repository->find($id)['data'];
         } catch (\Exception $ex) {
             return [false];
         }
@@ -61,7 +61,7 @@ class ProjectController extends Controller
     public function update($id, Request $request)
     {
         try {
-            return $this->service->update($request->all(), $id);
+            return $this->service->update($request->all(), $id) ? ['message'=>'Atualizado com sucesso!'] : ['message'=>'Não foi possível atualizar o projeto!'];
         } catch (Exception $ex) {
             return [false];
         }
@@ -69,12 +69,11 @@ class ProjectController extends Controller
 
     public function destroy($id)
     {
-        try{
-            return $this->service->delete($id);
+        try {
+            return $this->service->delete($id) ? ['message'=>'Excluído com sucesso!'] : ['message'=>'Não foi possível excluir o projeto!'];;
         } catch (Exception $ex) {
             return [false];
         }
-        
     }
 
 // METHODS TO RELATIONS WITH MEMBERS   

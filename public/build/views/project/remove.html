@@ -1,0 +1,43 @@
+<div class="container-fluid" ng-controller="ProjectRemoveController">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h2>{{project.name}}</h2></div>
+                <div class="panel-body">                    
+
+                    <div class="row col-md-offset-1">
+                        <h3>Descrição</h3>
+                        <p>{{project.description}}</p>
+                    </div>
+                    <div class="row col-md-offset-1">
+                        <h3>Cliente: 
+                            <small>{{project.client['data'].name}}</small>
+                        </h3>
+                    </div>
+                    <div class="row col-md-offset-1">
+                        <h3>Progresso: 
+                            <small>{{process[project.progress]}}</small>
+                        </h3>
+
+                    </div>
+                    <div class="row col-md-offset-1">
+                        <h3>Status: 
+                            <small>{{status[project.status]}}</small>
+                        </h3>
+                    </div>
+                    <div class="row col-md-offset-1">
+                        <h3>Data de entrega: 
+                            <small>{{project.due_date}}</small>
+                        </h3>
+                    </div>
+
+                    <div class="row col-md-offset-5">
+                        <button type="button" class="btn btn-danger" ng-click="remove()">Excluir</button>
+                        <a href="#/projects" class="btn btn-primary">Voltar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

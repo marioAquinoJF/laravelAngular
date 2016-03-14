@@ -17,7 +17,7 @@
                          <div class="form-group" ng-class="{'has-error': !projectNoteForm.note.$valid && projectNoteForm.note.$touched}">
                             <label class="col-md-4 control-label">Endereço</label>
                             <div class="col-md-6">
-                                <textarea class="form-control" name="note" ng-model="projectNote.note" required="required">{{ $routeParrams.projectId}}</textarea>
+                                <textarea class="form-control" name="note" ng-model="projectNote.note" required="required"></textarea>
                                 <div ng-messages="projectNoteForm.note.$error" class="help-block" ng-show="projectNoteForm.note.$touched">
                                     <div ng-message="required">Campo Obrigatório!</div>
                                 </div>
