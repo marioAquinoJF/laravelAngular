@@ -6,8 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Laravel</title>
         @if(Config::get('app.debug'))
-        <link href="{{ asset('build/css/vendor/bootstrap.min.css')}}" rel="stylesheet">
-        <link href="{{ asset('build/css/vendor/bootstrap-theme.min.css')}}" rel="stylesheet">
+        <link href="{{ asset('build/css/app.css')}}" rel="stylesheet">
+        <link href="{{ asset('build/css/components.css')}}" rel="stylesheet">
+        <link href="{{ asset('build/css/flaticon.css')}}" rel="stylesheet">
         <link href="{{ asset('build/css/vendor/font-awesome.min.css')}}" rel="stylesheet">
         <link href="{{ asset('build/css/angular-datepicker.min.css')}}" rel="stylesheet">
         @else
@@ -80,7 +81,7 @@
         <script src="{{ asset('build/js/vendor/angular-messages.min.js')}}"></script>
         <script src="{{ asset('build/js/vendor/ui-bootstrap.min.js')}}"></script>
         <script src="{{ asset('build/js/vendor/navbar.min.js')}}"></script>
-        <script src="{{ asset('build/js/scripts/angular-datepicker.min.js')}}"></script>
+        <!--script src="{{ asset('build/js/scripts/angular-datepicker.min.js')}}"></script>
         <!-- OAuth2 -->
         <script src="{{ asset('build/js/vendor/angular-cookies.min.js')}}"></script>
         <script src="{{ asset('build/js/vendor/query-string.js')}}"></script>

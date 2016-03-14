@@ -20,7 +20,7 @@ class ClientController extends Controller
 
     public function index()
     {
-        return $this->repository->skipPresenter()->all();
+        return $this->repository->all();
     }
 
     public function store(Request $request)
@@ -31,7 +31,7 @@ class ClientController extends Controller
     public function show($id)
     {
         try {
-            return $this->repository->skipPresenter()->with('projects')->find($id);
+            return $this->repository->with('projects')->find($id);
         } catch (\Exception $e) {
             return [false];
         }

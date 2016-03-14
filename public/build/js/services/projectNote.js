@@ -7,9 +7,6 @@ angular.module('app.services')
                     update: {
                         method: 'PUT'
                     },
-                    get: {
-                        method: 'GET'
-                    },
                     'delete': {method:'DELETE'}
                 });
             }]);

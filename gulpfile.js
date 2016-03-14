@@ -32,12 +32,12 @@ config.vendor_path_fonts = [
     config.bower_path + '/bootstrap/dist/fonts/glyphicons-halflings-regular.svg',
     config.bower_path + '/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf',
     config.bower_path + '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff',
-    config.bower_path + '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2',    
-    config.bower_path + '/font-awesome/fonts/fontawesome-webfont.eot',   
-    config.bower_path + '/font-awesome/fonts/fontawesome-webfont.svg',   
-    config.bower_path + '/font-awesome/fonts/fontawesome-webfont.ttf',   
-    config.bower_path + '/font-awesome/fonts/fontawesome-webfont.woff',   
-    config.bower_path + '/font-awesome/fonts/fontawesome-webfont.woff2',  
+    config.bower_path + '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2',
+    config.bower_path + '/font-awesome/fonts/fontawesome-webfont.eot',
+    config.bower_path + '/font-awesome/fonts/fontawesome-webfont.svg',
+    config.bower_path + '/font-awesome/fonts/fontawesome-webfont.ttf',
+    config.bower_path + '/font-awesome/fonts/fontawesome-webfont.woff',
+    config.bower_path + '/font-awesome/fonts/fontawesome-webfont.woff2',
     config.bower_path + '/font-awesome/fonts/FontAwesome.otf'
 
 ];
@@ -48,13 +48,13 @@ config.build_vendor_path_css = config.build_path_css + "/vendor";
 config.vendor_path_css = [
     config.bower_path + '/bootstrap/dist/css/bootstrap.min.css',
     config.bower_path + '/bootstrap/dist/css/bootstrap-theme.min.css',
-    config.bower_path + '/font-awesome/css/font-awesome.min.css',  
+    config.bower_path + '/font-awesome/css/font-awesome.min.css',
 ];
 
 config.build_path_html = config.build_path + "/views";
 
 config.build_path_fonts = config.build_path + "/fonts";
-config.build_vendor_path_fonts = config.build_path + "/css/fonts";
+config.build_path_images = config.build_path + "/images";
 // TASKS
 
 gulp.task('copy-styles', function () {
@@ -69,17 +69,6 @@ gulp.task('copy-styles', function () {
             .pipe(livereload());
 });
 
-gulp.task('copy-fonts', function () {
-    gulp.src([
-        config.assets_path + '/fonts/**/*.*'
-    ])
-            .pipe(gulp.dest(config.build_path_fonts))
-            .pipe(livereload());
-
-    gulp.src(config.vendor_path_fonts)
-            .pipe(gulp.dest(config.build_vendor_path_fonts))
-            .pipe(livereload());
-});
 gulp.task('copy-html', function () {
     gulp.src([
         config.assets_path + '/js/views/**/*.html'
@@ -87,6 +76,23 @@ gulp.task('copy-html', function () {
             .pipe(gulp.dest(config.build_path_html))
             .pipe(livereload());
 
+});
+
+gulp.task('copy-font', function () {
+    gulp.src([
+        config.assets_path + '/fonts/**/*'
+    ])
+            .pipe(gulp.dest(config.build_path_fonts))
+            .pipe(livereload());
+
+});
+
+gulp.task('copy-image', function () {
+    gulp.src([
+        config.assets_path + '/images/**/*'
+    ])
+            .pipe(gulp.dest(config.build_path_images))
+            .pipe(livereload());
 });
 
 gulp.task('copy-scripts', function () {
@@ -107,19 +113,21 @@ gulp.task('clear-build-folder', function () {
 });
 
 gulp.task('default', ['clear-build-folder'], function () {
-    gulp.start('copy-html');
+    gulp.start('copy-html', 'copy-font', 'copy-image');
     elixir(function (mix) {
         mix.styles(config.vendor_path_css.concat([config.assets_path + '/css/**/*']),
                 'public/css/all.css', config.assets_path);
+        mix.styles(config.vendor_path_css.concat([config.assets_path + '/css/**/*']),
+                'public/build/css/app.css', config.assets_path);
         mix.scripts(config.vendor_path_js.concat([config.assets_path + '/js/**/*']),
                 'public/js/all.js', config.assets_path);
-        mix.version(['js/all.js', 'css/all.css']);
+        mix.version(['js/all.js', 'css/all.css','app.css']);
     });
 });
 
 gulp.task('watch-dev', ['clear-build-folder'], function () {
     livereload.listen();
-    gulp.start('copy-styles', 'copy-scripts', 'copy-html','copy-fonts');
+    gulp.start('copy-styles', 'copy-scripts', 'copy-html', 'copy-font', 'copy-image');
     gulp.watch(config.assets_path + '/**', ['copy-styles', 'copy-scripts', 'copy-html']); // vê em todos os arquivos
 });
 

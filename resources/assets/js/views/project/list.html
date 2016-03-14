@@ -18,12 +18,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="o in projects">
-                                <td>{{o.name}}</td>
+                            <tr ng-repeat="p in projects">
+                                <td>{{p.name}}</td>
                                 <td>
-                                    <a ng-href="#/projects/{{o.id}}/edit" class="btn btn-sm btn-primary">Editar</a>
-                                    <a ng-href="#/projects/{{o.id}}/show" class="btn btn-sm btn-success">Abrir</a>
-                                    <a ng-href="#/projects/{{o.id}}/remove" class="btn btn-sm btn-danger">Excluir</a>
+                                    <a ng-href="#/projects/{{p.id}}/edit" class="btn btn-sm btn-primary">Editar</a>
+                                    <a ng-href="#/projects/{{p.id}}/show" class="btn btn-sm btn-success">Abrir</a>
+                                    <a ng-href="#/projects/{{p.id}}/remove" class="btn btn-sm btn-danger">Excluir</a>
                                 </td>
                             </tr>
                         </tbody>

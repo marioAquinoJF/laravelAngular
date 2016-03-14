@@ -41,7 +41,7 @@ class ProjectController extends Controller
 
     public function index()
     {
-        return $this->repository->skipPresenter()->all();
+        return $this->repository->all();
     }
 
     public function store(Request $request)
@@ -52,7 +52,7 @@ class ProjectController extends Controller
     public function show($id)
     {
         try {
-            return $this->repository->find($id)['data'];
+            return $this->repository->find($id);
         } catch (\Exception $ex) {
             return [false];
         }
@@ -79,12 +79,12 @@ class ProjectController extends Controller
 // METHODS TO RELATIONS WITH MEMBERS   
     public function getMembers($id)
     {
-        return $this->repository->skipPresenter()->find($id)->members;
+        return $this->repository->find($id)->members;
     }
 
     public function getMember($id, $member)
     {
-        return $this->repository->skipPresenter()->hasMember($member, $id);
+        return $this->repository->hasMember($member, $id);
     }
 
     public function newMember($id, $member)

@@ -15,7 +15,7 @@
                             </div>
                         </div>
                          <div class="form-group" ng-class="{'has-error': !projectNoteForm.note.$valid && projectNoteForm.note.$touched}">
-                            <label class="col-md-4 control-label">Endereço</label>
+                            <label class="col-md-4 control-label">Nota</label>
                             <div class="col-md-6">
                                 <textarea class="form-control" name="note" ng-model="projectNote.note" required="required"></textarea>
                                 <div ng-messages="projectNoteForm.note.$error" class="help-block" ng-show="projectNoteForm.note.$touched">
@@ -26,6 +26,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                <a href="#/project/{{projectNote.project_id}}/notes" class="btn btn-primary">Voltar</a>
                             </div>
                         </div>
                     </form>
