@@ -64,14 +64,12 @@
                         <div class="form-group" ng-class="{'has-error': !projectForm.due_date.$valid && projectForm.due_date.$touched}">
                             <label class="col-md-4 control-label" for="due_date">Data de término: </label>
                             <div class="col-md-6">
-                                <datepicker date-format="dd-MM-yyyy" selector="form-control">
                                     <div class="input-group">
                                         <input class="form-control"  name="due_date" ng-model="due_date" required="required" placeholder="Selecione uma data para o fim do projeto!"/>
                                         <span class="input-group-addon" style="cursor: pointer">
                                             <i class="fa fa-lg fa-calendar"></i>
                                         </span>
                                     </div>
-                                </datepicker>
                                 <div ng-messages="projectForm.due_date.$error" class="help-block" ng-show="projectForm.due_date.$touched">
                                     <div ng-message="required">Campo Obrigatório!</div>
                                 </div>

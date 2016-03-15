@@ -5,7 +5,6 @@ namespace larang\Repositories;
 use larang\Entities\User;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use larang\Repositories\UserRepository;
 use larang\Presenters\UserPresenter;
 
 /**

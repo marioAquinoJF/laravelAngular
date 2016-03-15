@@ -7,6 +7,7 @@
  */
 
 namespace larang\Presenters;
+
 use larang\Transformers\UserTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
@@ -17,8 +18,10 @@ use Prettus\Repository\Presenter\FractalPresenter;
  */
 class UserPresenter extends FractalPresenter
 {
-     public function getTransformer()
+
+    public function getTransformer()
     {
         return new UserTransformer();
     }
+
 }

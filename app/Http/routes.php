@@ -13,10 +13,9 @@ Route::controllers([
     'password' => 'Auth\PasswordController'
 ]);
 
+
 Route::group(['middleware' => 'oauth'], function() {
-    Route::get('userloggedin', function() {
-        return ['userId'=>\Authorizer::getResourceOwnerId()];
-    });
+    
     Route::resource('project', 'ProjectController', ['except' => ['edit', 'create']]);
     Route::resource('client', 'ClientController', ['except' => ['edit', 'create']]);
     Route::group(['prefix' => 'project'], function() {
@@ -33,4 +32,5 @@ Route::group(['middleware' => 'oauth'], function() {
         Route::delete('{project}/member/{member}', "ProjectController@removeMember");
         Route::post('{project}/user/isMember', "ProjectController@isMember");
     });
+    Route::get('user/authenticated', 'UserController@authenticatedUser');
 });

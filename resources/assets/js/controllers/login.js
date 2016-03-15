@@ -1,5 +1,5 @@
 angular.module('app.controllers')
-        .controller('LoginController', ['$scope', 'OAuth', '$location', function ($scope, OAuth, $location) {
+        .controller('LoginController', ['$scope', 'OAuth', '$location', '$cookies', 'User', function ($scope, OAuth, $location, $cookies, User) {
                 $scope.user = {
                     username: '',
                     password: ''
@@ -13,7 +13,12 @@ angular.module('app.controllers')
                     if ($scope.loginForm.$valid) {
                         OAuth.getAccessToken($scope.user)
                                 .then(function () {
-                                    $location.path('home');
+                                    User.authenticated({}, {},
+                                            function (data) {
+                                                $cookies.putObject('user', data);
+                                                $location.path('home');
+                                            });
+
                                 }, function (data) {
                                     $scope.error.error = true;
                                     $scope.error.message = data.data.error_description;

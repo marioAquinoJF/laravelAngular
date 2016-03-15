@@ -10,7 +10,6 @@
         <link href="{{ asset('build/css/components.css')}}" rel="stylesheet">
         <link href="{{ asset('build/css/flaticon.css')}}" rel="stylesheet">
         <link href="{{ asset('build/css/vendor/font-awesome.min.css')}}" rel="stylesheet">
-        <link href="{{ asset('build/css/angular-datepicker.min.css')}}" rel="stylesheet">
         @else
         <link href="{{ elixir('css/all.css')}}" rel="stylesheet">
         @endif
@@ -114,7 +113,7 @@
         <script src="{{ asset('build/js/services/client.js')}}"></script>
         <script src="{{ asset('build/js/services/projectNote.js')}}"></script>
         <script src="{{ asset('build/js/services/project.js')}}"></script>
-        <script src="{{ asset('build/js/services/userloggedin.js')}}"></script>
+        <script src="{{ asset('build/js/services/user.js')}}"></script>
 
         @else
 
