@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <a href="#/project/{{project_id}}/notes/new" class="btn btn-success">Nova Nota de Projeto</a>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Notas de um projeto</div>
+                <div class="panel-body">
+
+                    <br />
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Nota</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="o in projectTasks">
+                                <td>{{o.title}}</td>
+                                <td>{{o.note | limitTo: 30}}...</td>
+                                <td>
+                                    <a ng-href="#/project/{{o.project_id}}/notes/{{o.id}}/edit" class="btn btn-sm btn-primary">Editar</a>
+                                    <a ng-href="#/project/{{o.project_id}}/notes/{{o.id}}/show" class="btn btn-sm btn-danger">Ver</a>
+                                    <a ng-href="#/project/{{o.project_id}}/notes/{{o.id}}/remove" class="btn btn-sm btn-danger">Excluir</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

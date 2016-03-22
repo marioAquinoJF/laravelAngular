@@ -51,35 +51,23 @@ class ProjectController extends Controller
 
     public function show($id)
     {
-        try {
-            return $this->repository->find($id);
-        } catch (\Exception $ex) {
-            return [false];
-        }
+        return $this->repository->find($id);
     }
 
     public function update($id, Request $request)
     {
-        try {
-            return $this->service->update($request->all(), $id) ? ['message'=>'Atualizado com sucesso!'] : ['message'=>'Não foi possível atualizar o projeto!'];
-        } catch (Exception $ex) {
-            return [false];
-        }
+        return $this->service->update($request->all(), $id);
     }
 
     public function destroy($id)
     {
-        try {
-            return $this->service->delete($id) ? ['message'=>'Excluído com sucesso!'] : ['message'=>'Não foi possível excluir o projeto!'];;
-        } catch (Exception $ex) {
-            return [false];
-        }
+        return $this->service->delete($id) ? ['message' => 'Excluído com sucesso!'] : ['message' => 'Não foi possível excluir o projeto!'];
     }
 
 // METHODS TO RELATIONS WITH MEMBERS   
     public function getMembers($id)
     {
-        return $this->repository->find($id)->members;
+        return $this->repository->skipPresenter()->find($id)->members;
     }
 
     public function getMember($id, $member)

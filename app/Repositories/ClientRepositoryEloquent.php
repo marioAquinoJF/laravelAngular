@@ -21,6 +21,9 @@ use larang\Presenters\ClientPresenter;
  */
 class ClientRepositoryEloquent extends BaseRepository implements ClientRepository
 {
+    protected $fieldSearchable =[
+        'name'
+    ];
 
     public function model()
     {

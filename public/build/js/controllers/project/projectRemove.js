@@ -1,14 +1,12 @@
 angular.module('app.controllers')
-        .controller('ProjectRemoveController', ['$scope', '$location', '$routeParams', 'Project',
-            function ($scope, $location, $routeParams, Project) {
-                $scope.project = new Project.get({id: $routeParams.id}, function (r) {
-                    console.log($scope.project);
-                });
-                $scope.process = new Array('Iniciado',
-                        'Em andamento',
-                        'Concluído');
-                $scope.status = new Array('Em desenvolvimento',
-                        'Entregue');
+        .controller('ProjectRemoveController', ['$scope', '$location', '$routeParams', 'Project', 'appConfig',
+            function ($scope, $location, $routeParams, Project, appConfig) {
+                $scope.project = new Project.get({id: $routeParams.id},
+                        function (data) {
+                            $scope.project = data;
+                            $scope.clientSelected = data.client.data;
+                            $scope.status = appConfig.project.getStatus(data.status);
+                        });
 
                 $scope.remove = function () {
                     $scope.project.$delete({

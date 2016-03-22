@@ -46,10 +46,33 @@ class ProjectService extends Service
         foreach ($files as $file) {
             $this->serviceFile->deleteFile($file->id);
         }
-        if(count($this->repository->skipPresenter()->find($id)->files) === 0){
+        if (count($this->repository->skipPresenter()->find($id)->files) === 0) {
             return $this->repository->removeProject($id);
         }
         return [false];
+    }
+
+// Permitions
+    public function checkProjectPermitions($projectId)
+    {
+        $userId = \Authorizer::getResourceOwnerId();
+        if ($this->isOwner($userId, $projectId) or $this->checkProjectMember($userId, $projectId)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function checkProjectMember($userId, $projectId)
+    {
+        return count($this->hasMember($userId, $projectId)) > 0 ? true : false;
+    }
+    public function hasMember($memberId, $projectId)
+    {
+        return $this->repository->skipPresenter()->find($projectId)->members()->where('user_id', $memberId)->limit(1)->get();
+    }
+    public function isOwner($userId, $projectId)
+    {
+        return !(count(Project::where(['id' => $projectId, 'owner_id' => $userId])->get())) ? false : true;
     }
 
 }

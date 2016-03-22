@@ -3,7 +3,7 @@
 namespace larang\Validators;
 
 use Prettus\Validator\LaravelValidator;
-
+use Prettus\Validator\Contracts\ValidatorInterface;
 /**
  * Description of ProjectFileValidator
  *
@@ -13,11 +13,17 @@ class ProjectFileValidator extends LaravelValidator
 {
 
     protected $rules = [
-        'file' => 'required|mimes:jpg,jpeg,bmp,png,txt',
-        'name' => 'required|max:255',
-        'description' => 'required',
-        'lable' => '',
-        'project_id' => 'required|integer|exists:projects,id'
+        ValidatorInterface::RULE_CREATE => [
+            'file' => 'required|mimes:jpg,jpeg,bmp,png',
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'project_id' => 'required|integer|exists:projects,id'
+        ],
+        ValidatorInterface::RULE_UPDATE => [
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'project_id' => 'required|integer|exists:projects,id'
+        ]
     ];
 
 }

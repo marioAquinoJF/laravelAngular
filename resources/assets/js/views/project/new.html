@@ -1,8 +1,8 @@
-<div class="container-fluid" ng-controller="ProjectNewController">
+<div class="container-fluid" >
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading"><h2>Novo Projeto</h2></div>
+                <div class="panel-heading"><h2>Cadastro de Projeto</h2></div>
                 <div class="panel-body">
                     <form name='projectForm' class="form-horizontal" role="form" ng-submit="save();">
                         <div class="form-group" ng-class="{'has-error': !projectForm.name.$valid && projectForm.name.$touched}">
@@ -23,55 +23,64 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group" ng-class="{'has-error': !projectForm.client.$valid && projectForm.client.$touched}">
+                        <div class="form-group" ng-class="{'has-error': !projectForm.client_id.$valid && projectForm.client_id.$touched}">
                             <label class="col-md-4 control-label">Cliente</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="cli" required="required" 
-                                        ng-options="c.name for c in clients track by c.id"
-                                        ng-model="client">
-                                </select>
-                                <div ng-messages="projectForm.cli.$error" class="help-block" ng-show="projectForm.client.$touched">
+                                <input type="text" class="form-control" name="client_id" ng-model="clientSelected" 
+                                       typeahead="c as c.name for c in getClients($viewValue)|limitTo:10" 
+                                       typeahead-input-formatter="formateName($model)" 
+                                       typeahead-on-select="selectClient($item)"  
+                                       typeahead-editable="false"
+                                       required />
+                                <div ng-messages="projectForm.client_id.$error" class="help-block" ng-show="projectForm.client_id.$touched">
                                     <div ng-message="required">Você deve escolher um cliente!</div>
+                                    <div ng-message="editable">Selecione um cliente válido!</div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Progresso</label>
-                            <div class="col-md-6">
-                                <div class="row-group">
-                                    <label class="">Iniciado</label><input type="radio" class="radio-inline" name="progress" ng-model="project.progress" ng-value="0" value="0">
-                                </div>
-                                <div class="row-group">
-                                    <label class="">Em andamento</label><input type="radio" class="radio-inline" name="progress" ng-model="project.progress" ng-value="1" value="1" >
-                                </div>
-                                <div class="row-group">
-                                    <label class="">Concluído</label><input type="radio" class="radio-inline" name="progress" ng-model="project.progress" ng-value="2" value="2" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group" >
-                            <label class="col-md-4 control-label">Status</label>
-                            <div class="col-md-6">
-                                <div class="row-group">
-                                    <label class="">Em desenvolvimento</label><input type="radio" class="radio-inline" name="status" ng-model="project.status" value="0" >
-                                </div>
-                                <div class="row-group">
-                                    <label class="">Entregue</label><input type="radio" class="radio-inline" name="status" ng-model="project.status" value="1" >
-                                </div>
-
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error': !projectForm.due_date.$valid && projectForm.due_date.$touched}">
                             <label class="col-md-4 control-label" for="due_date">Data de término: </label>
                             <div class="col-md-6">
-                                    <div class="input-group">
-                                        <input class="form-control"  name="due_date" ng-model="due_date" required="required" placeholder="Selecione uma data para o fim do projeto!"/>
-                                        <span class="input-group-addon" style="cursor: pointer">
-                                            <i class="fa fa-lg fa-calendar"></i>
-                                        </span>
-                                    </div>
+                                <p class="input-group">
+                                    <input type="text" class="form-control" name="due_date"
+                                           datepicker-popup="dd/MM/yyyy" 
+                                           ng-model="project.due_date" 
+                                           is-open="due_date.status.opened"
+                                           close-text="Close"  
+                                           required />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event)">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </p>
                                 <div ng-messages="projectForm.due_date.$error" class="help-block" ng-show="projectForm.due_date.$touched">
+                                    <div ng-message="required">Escolha uma data para o término do projeto!</div>
+                                    <div ng-message="date">Data inválida!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': !projectForm.progress.$valid && projectForm.progress.$touched}">
+                            <label class="col-md-4 control-label">Progresso(%):</label>
+                            <div class="col-md-6">
+                                <input type="number" class="form-control" name="progress" ng-model="project.progress" min="0" max="100" required="required">
+                                <div ng-messages="projectForm.progress.$error" class="help-block" ng-show="projectForm.progress.$touched">
                                     <div ng-message="required">Campo Obrigatório!</div>
+                                    <div ng-message="min">O valor mínimo é 0!</div>
+                                    <div ng-message="max">O valor máximo é 100!</div>
+                                </div>
+                            </div>
+                        </div>    
+                        <div class="form-group" ng-class="{'has-error': !projectForm.status.$valid && projectForm.status.$touched}">
+                            <label class="col-md-4 control-label">Status</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="status"  
+                                        ng-options="s.value as s.label for s in status"
+                                        ng-model="project.status" required>
+                                    <option value="">-- Seleciona um status --</option>
+                                </select>
+                                <div ng-messages="projectForm.status.$error" class="help-block" ng-show="projectForm.status.$touched">
+                                    <div ng-message="required">Você deve escolher um cliente!</div>
                                 </div>
                             </div>
                         </div>

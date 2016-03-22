@@ -3,21 +3,21 @@
 namespace larang\Http\Middleware;
 
 use Closure;
-use larang\Repositories\ProjectRepository;
+use larang\Services\ProjectService;
 
 class CheckProjectPermitions
 {
 
-    protected $repository;
+    protected $service;
 
-    public function __construct(ProjectRepository $repository)
+    public function __construct(ProjectService $service)
     {
-        $this->repository = $repository;
+        $this->service = $service;
     }
 
     public function handle($request, Closure $next)
     {
-        if (!$this->repository->checkProjectPermitions($request->project)):
+        if (!$this->service->checkProjectPermitions($request->project)):
             return ['error' => 'Access forbiden or inexistent project!'];
         endif;
         return $next($request);

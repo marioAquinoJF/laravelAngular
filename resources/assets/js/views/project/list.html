@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="ProjectListController">
+<div class="container-fluid" >
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <a href="#/projects/new" class="btn btn-success">Novo Projeto</a>
@@ -14,12 +14,19 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th></th>
+                                <th>Cliente</th>
+                                <th>Progresso</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="p in projects">
                                 <td>{{p.name}}</td>
+                                <td>{{p.client.data.name}}</td>
+                                <td>{{p.progress}}</td>
+                                <td>{{p.status}}</td>
+                                <td>{{p.due_date | dateBr }}</td>
                                 <td>
                                     <a ng-href="#/projects/{{p.id}}/edit" class="btn btn-sm btn-primary">Editar</a>
                                     <a ng-href="#/projects/{{p.id}}/show" class="btn btn-sm btn-success">Abrir</a>

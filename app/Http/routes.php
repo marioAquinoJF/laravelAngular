@@ -24,6 +24,7 @@ Route::group(['middleware' => 'oauth'], function() {
         Route::resource('{project}/note', 'ProjectNoteController', ['except' => ['edit', 'create']]);
         Route::resource('{project}/task', 'ProjectTaskController', ['except' => ['edit', 'create']]);
         Route::resource('{project}/file', 'ProjectFileController', ['except' => ['edit', 'create']]);
+        Route::get('{project}/file/{id}/download', 'ProjectFileController@showFile');
 
 
         Route::post('{project}/member/{member}', "ProjectController@newMember");

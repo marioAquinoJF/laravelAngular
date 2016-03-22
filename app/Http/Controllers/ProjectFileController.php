@@ -21,7 +21,9 @@ class ProjectFileController extends Controller
             [
                 'store',
                 'destroy',
-                'index'
+                'index',
+                'showFile',
+                'update'
             ]
                 ]
         );
@@ -34,22 +36,35 @@ class ProjectFileController extends Controller
 
     public function store($id, Request $request)
     {
-        return $this->service->create(array_merge($request->all(),['project_id'=>$id]));
+        return [$this->service->create(array_merge($request->all(), ['project_id' => $id]))];
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function update($id, $projectFileId, Request $request)
+    {
+        return $this->service->update($request->all(), $projectFileId);
+    }
+
     public function destroy($id, $file)
     {
-        try {
-            return [$this->service->deleteFile($file)];
-        } catch (\Exception $e) {
-            return [false];
-        }
+        $this->service->deleteFile($file);
+    }
+
+    public function show($id, $idFile)
+    {
+        return $this->repository->find($idFile);
+    }
+
+    public function showFile($id, $idFile)
+    {
+        $filePath = $this->service->getFilePath($idFile);
+        $fileContents = file_get_contents($filePath);
+        $file64 = base64_encode($fileContents);
+        $name = $this->service->getFileName($idFile);
+        return [
+            'file' => $file64,
+            'size' => filesize($filePath),
+            'name' => $name
+        ];
     }
 
 }

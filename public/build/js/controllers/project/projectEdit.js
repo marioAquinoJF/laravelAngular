@@ -1,29 +1,48 @@
 angular.module('app.controllers')
-        .controller('ProjectEditController', ['$scope', '$location', '$routeParams', 'Project', 'Client',
-            function ($scope, $location, $routeParams, Project, Client) {
+        .controller('ProjectEditController',
+                ['$scope', '$location', '$routeParams', '$cookies', 'Project', 'Client', 'appConfig',
+                    function ($scope, $location, $routeParams, $cookies, Project, Client, appConfig) {
 
-                $scope.project = new Project.get({
-                    id: $routeParams.id
-                }, function (r) {
-                    $scope.due_date = $scope.project.due_date.split('-').reverse().join('-');
-                    $scope.clients = Client.query(function (cts) {
-                        for (var i = 0; i < cts.length; i++) {
-                            if (cts[i].id === $scope.project.client['data'].id) {
-                                $scope.client = $scope.clients[i];
-                                break;
+                        Project.get({id: $routeParams.id},
+                                function (data) {
+                                    $scope.project = data;
+                                    $scope.clientSelected = data.client.data;
+                                });
+                        $scope.due_date =
+                                {
+                                    status:
+                                            {opened: false}
+                                };
+                        $scope.open = function ($event) {
+                            $scope.due_date.status.opened = true;
+                        };
+                        $scope.status = appConfig.project.status;
+                        $scope.update = function () {
+                            if ($scope.projectForm.$valid) {
+                                $scope.project.owner_id = $cookies.getObject('user').id;
+                                Project.update({id: $scope.project.id}, $scope.project,
+                                        function () {
+                                            $location.path('/projects');
+                                        });
+
                             }
-                        }
-                    });
-                });
+                        };
+                        $scope.formateName = function (model) {
+                            if (model) {
+                                return model.name;
+                            }
+                            return '';
+                        };
+                        $scope.getClients = function (name) {
+                            return Client.query({
+                                search: name,
+                                searchFields: 'name:like'
+                            }).$promise;
+                        };
+                        $scope.selectClient = function (item) {
+                            $scope.project.client_id = item.id;
+                        };
 
-                $scope.update = function () { 
-                        $scope.project.owner_id = $scope.project.owner['data'].id;
-                        $scope.project.due_date = $scope.due_date.split('-').reverse().join('-');
-                        $scope.project.client_id = $scope.client.id;
-                        Project.update({id: $routeParams.id}, $scope.project, function (r) {
-                            $location.path('/projects');
-                        });
-                };
-            }]);
+                    }]);
 
 

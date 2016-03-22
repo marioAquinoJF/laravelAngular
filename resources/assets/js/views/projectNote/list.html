@@ -1,7 +1,8 @@
-<div class="container-fluid" ng-controller="ProjectNoteListController">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <a href="#/project/{{project_id}}/notes/new" class="btn btn-success">Nova Nota de Projeto</a>
+            <a href="#/projects/{{project_id}}/show" class="btn btn-primary">Voltar</a>
         </div>
     </div>
     <br />
@@ -26,7 +27,7 @@
                                 <td>{{o.note | limitTo: 30}}...</td>
                                 <td>
                                     <a ng-href="#/project/{{o.project_id}}/notes/{{o.id}}/edit" class="btn btn-sm btn-primary">Editar</a>
-                                    <a ng-href="#/project/{{o.project_id}}/notes/{{o.id}}/show" class="btn btn-sm btn-danger">Ver</a>
+                                    <a ng-href="#/project/{{o.project_id}}/notes/{{o.id}}/show" class="btn btn-sm btn-success">Ver</a>
                                     <a ng-href="#/project/{{o.project_id}}/notes/{{o.id}}/remove" class="btn btn-sm btn-danger">Excluir</a>
                                 </td>
                             </tr>

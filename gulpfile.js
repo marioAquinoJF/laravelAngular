@@ -21,11 +21,12 @@ config.vendor_path_js = [
     config.bower_path + '/angular-resource/angular-resource.min.js',
     config.bower_path + '/angular-animate/angular-animate.min.js',
     config.bower_path + '/angular-messages/angular-messages.min.js',
-    config.bower_path + '/angular-bootstrap/ui-bootstrap.min.js',
+    config.bower_path + '/angular-bootstrap/ui-bootstrap-tpls.min.js',
     config.bower_path + '/angular-strap/dist/modules/navbar.min.js',
     config.bower_path + '/angular-cookies/angular-cookies.min.js',
     config.bower_path + '/query-string/query-string.js',
-    config.bower_path + '/angular-oauth2/dist/angular-oauth2.min.js'
+    config.bower_path + '/angular-oauth2/dist/angular-oauth2.min.js',
+    config.bower_path + '/ng-file-upload/ng-file-upload.min.js'
 ];
 config.vendor_path_fonts = [
     config.bower_path + '/bootstrap/dist/fonts/glyphicons-halflings-regular.eot',

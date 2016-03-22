@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="ProjectRemoveController">
+<div class="container-fluid" >
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -16,18 +16,18 @@
                     </div>
                     <div class="row col-md-offset-1">
                         <h3>Progresso: 
-                            <small>{{process[project.progress]}}</small>
+                            <small>{{project.progress}}</small>
                         </h3>
 
                     </div>
                     <div class="row col-md-offset-1">
                         <h3>Status: 
-                            <small>{{status[project.status]}}</small>
+                            <small >{{status}}</small>
                         </h3>
                     </div>
                     <div class="row col-md-offset-1">
                         <h3>Data de entrega: 
-                            <small>{{project.due_date}}</small>
+                            <small>{{ project.due_date | dateBr}}</small>
                         </h3>
                     </div>
 

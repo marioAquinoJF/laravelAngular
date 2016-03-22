@@ -1,15 +1,15 @@
-<div class="container-fluid" ng-controller="ProjectNoteNewController">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Nova Nota</div>
                 <div class="panel-body">
                     <form name='projectNoteForm' class="form-horizontal" role="form" ng-submit="save();">
-                        <div class="form-group" ng-class="{'has-error': !clientForm.title.$valid && clientForm.title.$touched}">
+                        <div class="form-group" ng-class="{'has-error': !projectNoteForm.title.$valid && projectNoteForm.title.$touched}">
                             <label class="col-md-4 control-label">Title</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="title" ng-model="projectNote.title" required="required">
-                                <div ng-messages="clientForm.title.$error" class="help-block" ng-show="clientForm.title.$touched">
+                                <div ng-messages="projectNoteForm.title.$error" class="help-block" ng-show="projectNoteForm.title.$touched">
                                     <div ng-message="required">Campo Obrigatório!</div>
                                 </div>
                             </div>

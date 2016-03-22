@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Edição de  Arquivo</div>
+                <div class="panel-body">
+                    <form name='projectFileForm' class="form-horizontal" role="form" ng-submit="save();">
+                        <div class="form-group" ng-class="{'has-error': !projectFileForm.name.$valid && projectFileForm.name.$touched}">
+                            <label class="col-md-4 control-label">Title</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="name" ng-model="projectFile.name" required="required">
+                                <div ng-messages="projectFileForm.name.$error" class="help-block" ng-show="projectFileForm.name.$touched">
+                                    <div ng-message="required">Campo Obrigatório!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': !projectFileForm.description.$valid && projectFileForm.description.$touched}">
+                            <label class="col-md-4 control-label">Nota</label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" name="description" ng-model="projectFile.description" required="required"></textarea>
+                                <div ng-messages="projectFileForm.description.$error" class="help-block" ng-show="projectFileForm.description.$touched">
+                                    <div ng-message="required">Campo Obrigatório!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': !projectFileForm.file.$valid && projectFileForm.file.$touched}">
+                            <label class="col-md-4 control-label">Arquivo</label>
+                            <div class="col-md-6">
+                                <div class="btn btn-sm btn-success">
+                                    <project-file-download project-id="{{projectFile.project_id}}" id-file="{{projectFile.id}}"></project-file-download>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                                <a href="#/project/{{projectFile.project_id}}/files" class="btn btn-primary">Voltar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

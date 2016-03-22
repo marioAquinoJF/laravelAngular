@@ -1,8 +1,11 @@
-<div class="container-fluid" ng-controller="ProjectShowController">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading"><h2>{{project.name}}</h2><a href="#/project/{{project.id}}/notes" class="btn btn-sm btn-success">notas</a></div>
+                <div class="panel-heading"><h2>{{project.name}}</h2>
+                    <a href="#/project/{{project.id}}/notes" class="btn btn-sm btn-success">notas</a>
+                    <a href="#/project/{{project.id}}/files" class="btn btn-sm btn-success">Arquivos</a>
+                </div>
                 <div class="panel-body">
                      <div class="row col-md-offset-1">
                         <h3>Descrição</h3>
@@ -15,18 +18,18 @@
                     </div>
                     <div class="row col-md-offset-1">
                         <h3>Progresso: 
-                            <small>{{process[project.progress]}}</small>
+                            <small>{{project.progress}}%</small>
                         </h3>
 
                     </div>
                     <div class="row col-md-offset-1">
                         <h3>Status: 
-                            <small>{{status[project.status]}}</small>
+                            <small >{{status}}</small>
                         </h3>
                     </div>
                     <div class="row col-md-offset-1">
                         <h3>Data de entrega: 
-                            <small>{{project.due_date}}</small>
+                            <small>{{ project.due_date | dateBr }}</small>
                         </h3>
                     </div>
 

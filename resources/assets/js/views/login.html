@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="LoginController">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -7,12 +7,12 @@
                     <div class="alert alert-danger" ng-show="error.message">
                         <strong>Whoops!</strong> There were some problems with your input.<br><br>
                         <ul>
-                            
-                            <li>{{ error.message }}</li>
-                            
+
+                            <li>{{ error.message}}</li>
+
                         </ul>
                     </div>
-                   
+
 
                     <form name='loginForm' class="form-horizontal" role="form" ng-submit="login();">
                         <div class="form-group" ng-class="{'has-error': !loginForm.username.$valid && loginForm.username.$touched}">
