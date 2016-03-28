@@ -34,7 +34,7 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
 
     public function hasMember($memberId, $projectId)
     {
-        return $this->skipPresenter()->find($projectId)->members()->where('user_id', $memberId)->limit(1)->get();
+        return $this->skipPresenter()->find($projectId)->members()->where('member_id', $memberId)->limit(1)->get();
     }
 
     public function presenter()
@@ -50,7 +50,7 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
     // methods with relations
     public function getMember($member_id, $id)
     {
-        return $this->find($id)->members()->where('user_id', $member_id)->limit(1)->get();
+        return $this->find($id)->members()->where('member_id', $member_id)->limit(1)->get();
     }
 
     public function getTask($id, $task_id)
@@ -83,6 +83,17 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
             return $project->delete();
         }
         return true;
+    }
+
+// METHODS TO RELATIONS WITH USERS
+    public function findWithOwnerAndMember($userId)
+    {
+        return $this->scopeQuery(function($queryBuilder) use($userId) {
+                    return $queryBuilder->select('projects.*')
+                                    ->leftJoin('projects_members', 'projects_members.project_id', '=', 'projects.id')
+                                    ->where('projects_members.member_id', '=', $userId)
+                                    ->union($this->model->query()->getQuery()->where('owner_id', '=', $userId));
+                })->all();
     }
 
 }

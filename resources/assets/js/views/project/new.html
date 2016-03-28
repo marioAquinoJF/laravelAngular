@@ -30,7 +30,8 @@
                                        typeahead="c as c.name for c in getClients($viewValue)|limitTo:10" 
                                        typeahead-input-formatter="formateName($model)" 
                                        typeahead-on-select="selectClient($item)"  
-                                       typeahead-editable="false"
+                                       typeahead-editable="false"                                       
+                                       autocomplete="off"
                                        required />
                                 <div ng-messages="projectForm.client_id.$error" class="help-block" ng-show="projectForm.client_id.$touched">
                                     <div ng-message="required">Você deve escolher um cliente!</div>

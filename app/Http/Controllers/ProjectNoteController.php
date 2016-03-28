@@ -16,23 +16,7 @@ class ProjectNoteController extends Controller
     {
         $this->repository = $repository;
         $this->service = $sevice;
-        $this->middleware('CheckProjectOwner', ['only' =>
-            [
-                'destroy'
-            ]
-                ]
-        );
-
-        $this->middleware('CheckProjectPermitions', ['only' =>
-            [
-                'index',
-                'store',
-                'getTasks',
-                'show',
-                'update',
-            ]
-                ]
-        );
+        
     }
 
     public function index($id)

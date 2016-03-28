@@ -2,17 +2,16 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Exclusão de Nota</div>
+                <div class="panel-heading">Exclusão de Tarefa</div>
                 <div class="panel-body">
-                    <p>Deseja realmente excluir esta nota?</p>
+                    <p>Deseja realmente excluir esta tarefa?</p>
                     <ul>
-                        <li><strong>Title </strong>{{ projectTask.title }}</li>
-                        <li><strong>Note: </strong>{{ projectTask.note}}</li>
+                        <li><strong>Name: </strong>{{ projectTask.name }}</li>
                     </ul>
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <button type="button" class="btn btn-danger" ng-click="remove()">Excluir</button>
-                            <a href="#/project/{{projectTask.project_id}}/notes" class="btn btn-primary">Voltar</a>
+                            <a href="#/project/{{projectTask.project_id}}/tasks" class="btn btn-primary">Voltar</a>
                         </div>
                     </div>
                 </div>

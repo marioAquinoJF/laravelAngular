@@ -53,7 +53,7 @@ $factory->define(larang\Entities\ProjectNote::class, function (Faker\Generator $
 $factory->define(larang\Entities\ProjectMember::class, function (Faker\Generator $faker) {
     return [
         'project_id' => rand(1,30),
-        'user_id' => rand(1,10),
+        'member_id' => rand(1,10),
     ];
 });
 
@@ -61,9 +61,9 @@ $factory->define(larang\Entities\ProjectTask::class, function (Faker\Generator $
     return [
         'project_id' => rand(1,10),
         'name' => $faker->word,
-        'start_date' => $faker->date('now'),
+        'start_date' => $faker->date(),
         'due_date' => $faker->date(),
-        'status' => rand(1, 5)
+        'status' => rand(1, 0)
     ];
 });
 

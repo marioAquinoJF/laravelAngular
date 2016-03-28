@@ -3,29 +3,22 @@
 namespace larang\Services;
 
 use larang\Repositories\ProjectTaskRepository;
+use larang\Repositories\ProjectRepository;
 use larang\Validators\ProjectTaskValidator;
 
 class ProjectTaskService extends Service
 {
 
     protected $repository;
+    protected $projectRepository;
     protected $validator;
 
-    public function __construct(ProjectTaskRepository $repository, ProjectTaskValidator $validator)
+    public function __construct(ProjectTaskRepository $repository,ProjectRepository $projectRepository, ProjectTaskValidator $validator)
     {
         $this->repository = $repository;
         $this->validator = $validator;
+        $this->projectRepository = $projectRepository;
     }
 
-    public function addMember($projectId, $userId)
-    {
-        $project = $this->repository->find($projectId);
-        return $project->members()->attach($userId);
-    }
-
-    public function removeMember($projectId, $userId)
-    {
-        return $this->repository->find($projectId)->members()->detach($userId);
-    }
 
 }

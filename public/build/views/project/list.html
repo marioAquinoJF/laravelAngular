@@ -1,14 +1,17 @@
 <div class="container-fluid" >
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <a href="#/projects/new" class="btn btn-success">Novo Projeto</a>
+        <div class="col-md-8 col-lg-offset-2">
+            <a href="#/project/new" class="btn btn-success">Novo Projeto</a>
         </div>
-    </div>
-    <br />
+
+    </div> <br />
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+
+        <div class="col-md-8 col-lg-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading"><h2>Projetos</h2></div>
+                <div class="panel-heading">
+                    <h2>Projetos</h2>                   
+                </div>
                 <div class="panel-body">
                     <table class="table">
                         <thead>
@@ -18,6 +21,8 @@
                                 <th>Progresso</th>
                                 <th>Status</th>
                                 <th>Due Date</th>
+                                <th>Elementos do projeto</th>
+                                <th>Edição de projeto</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,11 +31,17 @@
                                 <td>{{p.client.data.name}}</td>
                                 <td>{{p.progress}}</td>
                                 <td>{{p.status}}</td>
-                                <td>{{p.due_date | dateBr }}</td>
+                                <td>{{p.due_date| dateBr }}</td>
                                 <td>
-                                    <a ng-href="#/projects/{{p.id}}/edit" class="btn btn-sm btn-primary">Editar</a>
-                                    <a ng-href="#/projects/{{p.id}}/show" class="btn btn-sm btn-success">Abrir</a>
-                                    <a ng-href="#/projects/{{p.id}}/remove" class="btn btn-sm btn-danger">Excluir</a>
+                                    <a href="#/project/{{p.id}}/notes" class="btn btn-sm btn-success">notas</a>
+                                    <a href="#/project/{{p.id}}/files" class="btn btn-sm btn-success">Arquivos</a>
+                                    <a href="#/project/{{p.id}}/tasks" class="btn btn-sm btn-success">Tarefas</a>
+                                    <a href="#/project/{{p.id}}/members" class="btn btn-sm btn-success">Membros</a>
+                                </td>
+                                <td>
+                                    <a ng-href="#/project/{{p.id}}/edit" class="btn btn-sm btn-primary">Editar</a>
+                                    <a ng-href="#/project/{{p.id}}/show" class="btn btn-sm btn-success">Abrir</a>
+                                    <a ng-href="#/project/{{p.id}}/remove" class="btn btn-sm btn-danger">Excluir</a>
                                 </td>
                             </tr>
                         </tbody>

@@ -9,7 +9,6 @@ angular.module('app.controllers')
                                $location.path('/clients');
                             },
                             function (response) {
-                                console.log(response);
                             }
                     );
                 };

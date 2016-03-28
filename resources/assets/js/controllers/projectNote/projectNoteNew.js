@@ -2,6 +2,7 @@ angular.module('app.controllers')
         .controller('ProjectNoteNewController', ['$scope', '$location', '$routeParams', 'ProjectNote',
             function ($scope, $location, $routeParams, ProjectNote) {
                 $scope.project_id = $routeParams.id;
+                
                 $scope.projectNote = new ProjectNote({id: $routeParams.id});
                 $scope.save = function () {
                     $scope.projectNote.project_id = $scope.project_id;
@@ -15,7 +16,6 @@ angular.module('app.controllers')
                     if(id){
                         for(var i in $scope.clients){
                             if($scope.clients[i].id == id){
-                                console.log('ok');
                                 return $scope.clients[i].name;
                             }
                         }

@@ -17,16 +17,6 @@ class ProjectFileController extends Controller
     {
         $this->repository = $repository;
         $this->service = $sevice;
-        $this->middleware('CheckProjectPermitions', ['only' =>
-            [
-                'store',
-                'destroy',
-                'index',
-                'showFile',
-                'update'
-            ]
-                ]
-        );
     }
 
     public function index($id)
@@ -56,6 +46,7 @@ class ProjectFileController extends Controller
 
     public function showFile($id, $idFile)
     {
+     //   dd($id);
         $filePath = $this->service->getFilePath($idFile);
         $fileContents = file_get_contents($filePath);
         $file64 = base64_encode($fileContents);

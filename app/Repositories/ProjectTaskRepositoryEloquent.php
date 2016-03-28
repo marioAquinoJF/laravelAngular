@@ -7,17 +7,18 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use larang\Repositories\ProjectTaskRepository;
 use larang\Entities\ProjectTask;
 use larang\Presenters\ProjectTaskPresenter;
+
 /**
  * Class ProjectTaskRepositoryEloquent
  * @package namespace larang\Repositories;
  */
 class ProjectTaskRepositoryEloquent extends BaseRepository implements ProjectTaskRepository
 {
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
+
+    protected $fieldSearchable = [
+        'name'
+    ];
+
     public function model()
     {
         return ProjectTask::class;
@@ -30,9 +31,10 @@ class ProjectTaskRepositoryEloquent extends BaseRepository implements ProjectTas
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
     public function presenter()
     {
         return ProjectTaskPresenter::class;
     }
+
 }

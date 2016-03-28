@@ -48,7 +48,7 @@ class User extends Model implements Transformable, AuthenticatableContract, Auth
 
     public function memberInProjects()
     {
-        return $this->belongsToMany(Project::class, 'projects_members', 'user_id', 'project_id');
+        return $this->belongsToMany(Project::class, 'projects_members', 'member_id', 'project_id');
     }
 
 }

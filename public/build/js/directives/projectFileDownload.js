@@ -25,10 +25,10 @@ angular.module('app.directives')
                             controller: ['$scope', '$element', '$attrs',
                                 function ($scope, $element, $attrs) {
                                     $scope.downloadFile = function () {
-                                        var anchor = $element.children()[0]; // <a>
+                                        var anchor = $element.children()[0];
                                         $(anchor).addClass('disable');
                                         $(anchor).text('Loading...');
-                                        //   console.log($attrs.idFile);
+                                       
                                         ProjectFile.download({id: $attrs.projectId, idFile: $attrs.idFile},
                                                 function (data) {
                                                     $scope.$emit('save-file', data);

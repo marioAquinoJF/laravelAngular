@@ -4,6 +4,7 @@ namespace larang\Transformers;
 
 use League\Fractal\TransformerAbstract;
 use larang\Entities\User;
+use larang\Entities\ProjectMember;
 
 /**
  * Class ProjectMemberTransformer
@@ -12,22 +13,20 @@ use larang\Entities\User;
 class ProjectMemberTransformer extends TransformerAbstract
 {
 
-    /**
-     * Transform the \ProjectMember entity
-     * @param \ProjectMember $model
-     *
-     * @return array
-     */
-    public function transform(User $model)
+    protected $defaultIncludes = ['user'];
+
+    public function transform(ProjectMember $model)
     {
 
         return [
-            'member_id' => $model->id,
-            'name' => $model->name,
-            'email' => $model->email,
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at,
+            'id' => $model->id,
+            'project_id' => $model->project_id,
         ];
+    }
+
+    public function includeUser(ProjectMember $model)
+    {
+        return $this->collection($model->member, new MemberTransformer());
     }
 
 }

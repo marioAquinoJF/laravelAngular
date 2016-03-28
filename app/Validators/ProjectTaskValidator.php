@@ -13,10 +13,7 @@ class ProjectTaskValidator extends LaravelValidator
 {
 
     protected $rules = [
-        'name' => 'required:max:255',
-        'status' => 'required',
-        'start_date' => 'required|date',
-        'due_date' => 'required|date'
+        'name' => 'required:max:255'
     ];
 
 }

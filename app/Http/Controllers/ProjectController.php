@@ -16,32 +16,26 @@ class ProjectController extends Controller
     {
         $this->repository = $repository;
         $this->service = $sevice;
-        $this->middleware('CheckProjectOwner', ['only' =>
+        $this->middleware('check.project.owner', [
+            'only' =>
             [
                 'removeMember',
                 'newMember',
-                'destroy',
+                'destroy'
             ]
-                ]
-        );
-
-        $this->middleware('CheckProjectPermitions', ['only' =>
+        ]);
+        $this->middleware('check.project.permitions', [
+            'except' =>
             [
-                'getMembers',
-                'getMember',
-                'getTask',
-                'getFiles',
-                'getFile',
-                'show',
-                'update',
+                'index',
+                'store'
             ]
-                ]
-        );
+        ]);
     }
 
     public function index()
     {
-        return $this->repository->all();
+        return $this->repository->findWithOwnerAndMember(\Authorizer::getResourceOwnerId());
     }
 
     public function store(Request $request)
@@ -86,21 +80,20 @@ class ProjectController extends Controller
     }
 
 // METHODS TO RELATIONS WITH TASKS
-
-    public function getTask($id, $task_id)
-    {
-        return $this->repository->getTask($id, $task_id);
-    }
-
+    /*
+      public function getTask($id, $task_id)
+      {
+      return $this->repository->getTask($id, $task_id);
+      }
+     */
 // METHODS TO RELATIONS WITH Files
-    public function getFiles($id)
-    {
-        return $this->repository->skipPresenter->find($id)->files();
-    }
+    /*    public function getFiles($id)
+      {
+      return $this->repository->skipPresenter->find($id)->files();
+      }
 
-    public function getFile($id, $task_id)
-    {
-        return $this->repository->getTask($id, $task_id);
-    }
-
+      public function getFile($id, $task_id)
+      {
+      return $this->repository->getTask($id, $task_id);
+      } */
 }

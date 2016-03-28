@@ -18,7 +18,8 @@ class CheckProjectOwner
     public function handle($request, Closure $next)
     {
         $userId = \Authorizer::getResourceOwnerId();
-        if (!$this->service->isOwner($userId, $request->project)):
+        $project_id = $request->route('id') ? $request->route('id') : $request->route('project');
+        if (!$this->service->isOwner($userId, $project_id)):
             return ['error' => 'Access forbiden or inexistent project!'];
         endif;
         return $next($request);

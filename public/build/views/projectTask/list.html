@@ -1,33 +1,54 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <a href="#/project/{{project_id}}/notes/new" class="btn btn-success">Nova Nota de Projeto</a>
+            <a href="#/project/{{project_id}}/task/new" class="btn btn-success">Nova Tarefa</a>
         </div>
     </div>
     <br />
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Notas de um projeto</div>
+                <div class="panel-heading">
+                    Tarefas
+                    <div class="pull-right col-md-10">
+                        <form class="form-inline" name="projectTaskForm" role="form" ng-submit="save()">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Nome</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="name" ng-model="projectTask.name" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div class="panel-body">
 
                     <br />
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Título</th>
-                                <th>Nota</th>
+                                <th>Tarefa</th>
+                                <th>Status</th>
+                                <th>Iniciado em</th>
+                                <th>Data Final</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="o in projectTasks">
-                                <td>{{o.title}}</td>
-                                <td>{{o.note | limitTo: 30}}...</td>
+                            <tr ng-repeat="t in projectTasks">
+                                <td>{{t.name}}</td>
+                                <td>{{t.status}}</td>
+                                <td>{{t.start_date| dateBr }}</td>
+                                <td>{{t.due_date| dateBr }}</td>
                                 <td>
-                                    <a ng-href="#/project/{{o.project_id}}/notes/{{o.id}}/edit" class="btn btn-sm btn-primary">Editar</a>
-                                    <a ng-href="#/project/{{o.project_id}}/notes/{{o.id}}/show" class="btn btn-sm btn-danger">Ver</a>
-                                    <a ng-href="#/project/{{o.project_id}}/notes/{{o.id}}/remove" class="btn btn-sm btn-danger">Excluir</a>
+                                    <a ng-href="#/project/{{t.project_id}}/task/{{t.id}}/edit" class="btn btn-sm btn-primary">Editar</a>
+                                    <a ng-href="#/project/{{t.project_id}}/task/{{t.id}}/show" class="btn btn-sm btn-danger">Ver</a>
+                                    <a ng-href="#/project/{{t.project_id}}/task/{{t.id}}/remove" class="btn btn-sm btn-danger">Excluir</a>
                                 </td>
                             </tr>
                         </tbody>

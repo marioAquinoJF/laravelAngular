@@ -3,7 +3,7 @@ angular.module('app.controllers')
             function ($scope, $routeParams, ProjectTask) {
                 $scope.projectTask  = new ProjectTask.get({
                     id: $routeParams.id,
-                    idNote: $routeParams.idTask
+                    idTask: $routeParams.idTask
                 });
                 
             }

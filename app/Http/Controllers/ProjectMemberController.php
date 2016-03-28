@@ -2,36 +2,49 @@
 
 namespace larang\Http\Controllers;
 
+use Illuminate\Http\Request;
 use larang\Http\Controllers\Controller;
 use larang\Repositories\ProjectMemberRepository;
+use larang\Services\ProjectMemberService;
 
 class ProjectMemberController extends Controller
 {
 
     private $repository;
+    private $service;
 
-    public function __construct(ProjectMemberRepository $repository)
+    public function __construct(ProjectMemberRepository $repository, ProjectMemberService $service)
     {
         $this->repository = $repository;
-
-        $this->middleware('CheckProjectPermitions', ['only' =>
-            [
-
-                'show'
-            ]
-                ]
-        );
+        $this->service = $service;
+        $this->middleware('check.project.owner', ['except' => ['index', 'show']]);
+        $this->middleware('check.project.permitions', ['except' => ['store', 'destroy']]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function index($id)
+    {
+        return $this->repository->findWhere(['project_id' => $id]);
+    }
+
+    public function store(Request $request, $id)
+    {
+        if($request->member_id):
+            $member = $this->repository->skipPresenter()->findWhere(['member_id'=>$request->member_id, 'project_id'=>$id]);
+            if(count($member) == 0):
+                return $this->service->create(array_merge($request->all(), ['project_id' => $id]));
+            endif;            
+        endif;
+       return ['error'=>'O membro já pertence ao projeto!']   ;
+    }
+
     public function show($id, $memberId)
     {
-        return $this->repository->getMember($id, $memberId);
+        return $this->repository->find($memberId);
+    }
+
+    public function destroy($id, $memberId)
+    {
+        return ['deleted'=>$this->service->delete($memberId)];
     }
 
 }

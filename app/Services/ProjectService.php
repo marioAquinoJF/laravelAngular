@@ -66,10 +66,12 @@ class ProjectService extends Service
     {
         return count($this->hasMember($userId, $projectId)) > 0 ? true : false;
     }
+
     public function hasMember($memberId, $projectId)
     {
         return $this->repository->skipPresenter()->find($projectId)->members()->where('user_id', $memberId)->limit(1)->get();
     }
+
     public function isOwner($userId, $projectId)
     {
         return !(count(Project::where(['id' => $projectId, 'owner_id' => $userId])->get())) ? false : true;
