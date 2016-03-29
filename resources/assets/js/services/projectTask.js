@@ -1,6 +1,6 @@
 angular.module('app.services')
-        .service('ProjectTask', ['$resource', 'appConfig',
-            function ($resource, appConfig) {
+        .service('ProjectTask', ['$resource', '$filter','appConfig',
+            function ($resource, $filter, appConfig) {
                 function transformData(data) {
                     if (angular.isObject(data)) {
                         var o = angular.copy(data);

@@ -82,17 +82,19 @@
         <script src="{{ asset('build/js/vendor/ui-bootstrap-tpls.min.js')}}"></script>
         <script src="{{ asset('build/js/vendor/navbar.min.js')}}"></script>
         <script src="{{ asset('build/js/vendor/ng-file-upload.min.js')}}"></script>
-       
+
         <!-- OAuth2 -->
         <script src="{{ asset('build/js/vendor/angular-cookies.min.js')}}"></script>
         <script src="{{ asset('build/js/vendor/query-string.js')}}"></script>
         <script src="{{ asset('build/js/vendor/angular-oauth2.min.js')}}"></script>
+        <script src="{{ asset('build/js/vendor/http-auth-interceptor.js')}}"></script>
 
         <script src="{{ asset('build/js/app.js')}}"></script>
 
 
         <!-- Controllers -->
         <script src="{{ asset('build/js/controllers/login.js')}}"></script>
+        <script src="{{ asset('build/js/controllers/loginModal.js')}}"></script>
         <script src="{{ asset('build/js/controllers/home.js')}}"></script>
         <script src="{{ asset('build/js/controllers/client/clientList.js')}}"></script>
         <script src="{{ asset('build/js/controllers/client/clientNew.js')}}"></script>
@@ -117,19 +119,21 @@
         <script src="{{ asset('build/js/controllers/projectFile/projectFileEdit.js')}}"></script>
         <script src="{{ asset('build/js/controllers/projectFile/projectFileRemove.js')}}"></script>
         <!--<script src="{{ asset('build/js/controllers/project/projectShow.js')}}"></script--> 
-        
+
         <!-- Project Task-->
         <script src="{{ asset('build/js/controllers/projectTask/projectTaskList.js')}}"></script>
         <script src="{{ asset('build/js/controllers/projectTask/projectTaskNew.js')}}"></script>
         <script src="{{ asset('build/js/controllers/projectTask/projectTaskEdit.js')}}"></script>
         <script src="{{ asset('build/js/controllers/projectTask/projectTaskRemove.js')}}"></script>
         <script src="{{ asset('build/js/controllers/projectTask/projectTaskShow.js')}}"></script>
-        
+
         <!-- Project Member-->
         <script src="{{ asset('build/js/controllers/projectMember/projectMemberList.js')}}"></script>
         <script src="{{ asset('build/js/controllers/projectMember/projectMemberRemove.js')}}"></script>
+
         <!-- Directives -->
         <script src="{{ asset('build/js/directives/projectFileDownload.js')}}"></script>
+        <script src="{{ asset('build/js/directives/login.js')}}"></script>
         <!-- Filters -->
         <script src="{{ asset('build/js/filters/date-br.js')}}"></script>
         <!-- Services -->
@@ -141,6 +145,7 @@
         <script src="{{ asset('build/js/services/projectFile.js')}}"></script>
         <script src="{{ asset('build/js/services/projectTask.js')}}"></script>
         <script src="{{ asset('build/js/services/projectMember.js')}}"></script>
+        <script src="{{ asset('build/js/services/oauthFixInterceptor.js')}}"></script>
 
         @else
 

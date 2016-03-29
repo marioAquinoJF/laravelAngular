@@ -1,6 +1,6 @@
-var app = angular.module('app', ['ngRoute', 'angular-oauth2',
+var app = angular.module('app', ['ngRoute', 'angular-oauth2', 'http-auth-interceptor',
     'app.controllers', 'app.services', 'app.directives',
-    'app.filters', "ui.bootstrap.typeahead",
+    'app.filters', "ui.bootstrap.typeahead", "ui.bootstrap.modal",
     "ui.bootstrap.tpls", "ui.bootstrap.datepicker",
     "ngFileUpload"]);
 
@@ -72,10 +72,22 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvi
         $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.transformRequest = appConfigProvider.config.utils.transformRequest;
         $httpProvider.defaults.transformResponse = appConfigProvider.config.utils.transformResponse;
+        $httpProvider.interceptors.splice(0, 1);
+        $httpProvider.interceptors.splice(0, 1);
+        $httpProvider.interceptors.push('oauthFixInterceptor');
         $routeProvider
                 .when('/login', {
                     templateUrl: 'build/views/login.html',
                     controller: 'LoginController'
+                })
+                .when('/logout', {
+                    resolve: {
+                        logout: ['$location', 'OAuthToken',
+                            function ($location, OAuthToken) {
+                                OAuthToken.removeToken();
+                                $location.path('/login');
+                            }]
+                    }
                 })
                 .when('/home', {
                     templateUrl: 'build/views/home.html',
@@ -176,11 +188,11 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvi
                 .when('/project/:id/task/:idTask/show', {
                     templateUrl: 'build/views/projectTask/show.html',
                     controller: 'ProjectTaskShowController'
-                })                
+                })
                 .when('/project/:id/members', {
                     templateUrl: 'build/views/projectMember/list.html',
                     controller: 'ProjectMemberListController'
-                })             
+                })
                 .when('/project/:id/member/:idMember/remove', {
                     templateUrl: 'build/views/projectMember/remove.html',
                     controller: 'ProjectMemberRemoveController'
@@ -199,19 +211,36 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvi
         });
     }]);
 
-app.run(['$rootScope', '$window', 'OAuth', function ($rootScope, $window, OAuth) {
-        $rootScope.$on('oauth:error', function (event, rejection) {
+app.run(['$rootScope', '$location', '$http', '$modal', 'httpBuffer', 'OAuth',
+    function ($rootScope, $location, $http, $modal, httpBuffer, OAuth) {
+        $rootScope.$on('$routeChangeStart',
+                function (event, next, current) {
+                    if (next.$$route.originalPath != '/login') { // verifica se a rota é a do login
+                        if (!OAuth.isAuthenticated()) {
+                            $location.path('/login');
+                        }
+                    }
+                });
+        $rootScope.$on('oauth:error', function (event, data) {
             // Ignore `invalid_grant` error - should be catched on `LoginController`.
-            if ('invalid_grant' === rejection.data.error) {
+            if ('invalid_grant' === data.rejection.data.error) {
                 return;
             }
 
             // Refresh token when a `invalid_token` error occurs.
-            if ('invalid_token' === rejection.data.error) {
-                return OAuth.getRefreshToken();
+            if ('access_denied' === data.rejection.data.error) {
+                httpBuffer.append(data.rejection.config, data.deferred);
+                if (!$rootScope.loginModalOpened) {
+                    var modalInstance = $modal.open({
+                        templateUrl: 'build/views/templates/loginModal.html',
+                        controller: 'LoginModalController'
+                    });
+                    $rootScope.loginModalOpened = true;
+                }
+                return;
             }
 
             // Redirect to `/login` with the `error_reason`.
-            return $window.location.href = '/login?error_reason=' + rejection.data.error;
+            return $location.path('/login');
         });
     }]);
