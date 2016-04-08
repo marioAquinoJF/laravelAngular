@@ -1,8 +1,20 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+            <a href="#/project/{{projectNote.project_id}}/note/new" class="btn btn-success">Nova Nota</a>
+            <a href="#/project/{{projectNote.project_id}}/show" class="btn btn-primary">Projeto</a>
+            <a href="#/project/{{projectNote.project_id}}/notes" class="btn btn-primary">Notas</a>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Editar Nota</div>
+                <div class="panel-heading">
+                    <div class="row">
+                        <h4 class="pull-left col-md-4"><b>Editar Nota</b></h4>
+                    </div>
+                </div>
                 <div class="panel-body">
                     <form name='projectNoteForm' class="form-horizontal" role="form" ng-submit="save();">
                         <div class="form-group" ng-class="{'has-error': !projectNoteForm.title.$valid && projectNoteForm.title.$touched}">
@@ -14,10 +26,10 @@
                                 </div>
                             </div>
                         </div>
-                         <div class="form-group" ng-class="{'has-error': !projectNoteForm.note.$valid && projectNoteForm.note.$touched}">
+                        <div class="form-group" ng-class="{'has-error': !projectNoteForm.note.$valid && projectNoteForm.note.$touched}">
                             <label class="col-md-4 control-label">Endereço</label>
                             <div class="col-md-6">
-                                <textarea class="form-control" name="note" ng-model="projectNote.note" required="required">{{ projectNote.note }}</textarea>
+                                <textarea class="form-control" name="note" ng-model="projectNote.note" required="required">{{ projectNote.note}}</textarea>
                                 <div ng-messages="projectNoteForm.note.$error" class="help-block" ng-show="projectNoteForm.note.$touched">
                                     <div ng-message="required">Campo Obrigatório!</div>
                                 </div>
@@ -26,7 +38,6 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Savar</button>
-                                <a href="#/project/{{projectNote.project_id}}/notes" class="btn btn-primary">Voltar</a>
                             </div>
                         </div>
                     </form>

@@ -69,7 +69,7 @@ class ProjectService extends Service
 
     public function hasMember($memberId, $projectId)
     {
-        return $this->repository->skipPresenter()->find($projectId)->members()->where('user_id', $memberId)->limit(1)->get();
+        return $this->repository->skipPresenter()->find($projectId)->members()->where('member_id', $memberId)->limit(1)->get();
     }
 
     public function isOwner($userId, $projectId)

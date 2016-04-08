@@ -1,18 +1,29 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+            <a href="#/project/{{projectNote.projectNote.project_id}}/note/new" class="btn btn-success">Nova Nota</a>
+            <a href="#/project/{{projectNote.project_id}}/show" class="btn btn-primary">Projeto</a>
+            <a href="#/project/{{projectNote.project_id}}/notes" class="btn btn-primary">Notas</a>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Exclusão de Nota</div>
+                <div class="panel-heading">
+                    <div class="row">
+                        <h4 class="pull-left col-md-4"><b>Excluir Nota</b></h4>
+                    </div>
+                </div>
                 <div class="panel-body">
                     <p>Deseja realmente excluir esta nota?</p>
                     <ul>
-                        <li><strong>Title </strong>{{ projectNote.title }}</li>
+                        <li><strong>Title </strong>{{ projectNote.title}}</li>
                         <li><strong>Note: </strong>{{ projectNote.note}}</li>
                     </ul>
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <button type="button" class="btn btn-danger" ng-click="remove()">Excluir</button>
-                            <a href="#/project/{{projectNote.project_id}}/notes" class="btn btn-primary">Voltar</a>
                         </div>
                     </div>
                 </div>

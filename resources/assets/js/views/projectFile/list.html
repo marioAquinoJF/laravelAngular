@@ -2,14 +2,18 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <a href="#/project/{{project_id}}/file/new" class="btn btn-success">Adicionar Arquivo</a>
-            <a href="#/projects/{{project_id}}/show" class="btn btn-primary">Projeto</a>
+            <a href="#/project/{{project_id}}/show" class="btn btn-primary">Projeto</a>
         </div>
     </div>
     <br />
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Arquivos de um projeto</div>
+                <div class="panel-heading">
+                    <div class="row">
+                        <h4 class="pull-left col-md-4"><b>Arquivos de um projeto</b></h4>
+                    </div>
+                </div>
                 <div class="panel-body">
 
                     <br />
@@ -27,14 +31,14 @@
                                 <td>{{o.name}}</td>
                                 <td>{{o.description| limitTo: 30}}...</td>
                                 <td>
-                                    <project-file-download project-id="{{o.project_id}}" id-file="{{o.id}}">
-                                    </project-file-download>
-                                </td>
-                                <td>
-                                    <a ng-href="#/project/{{o.project_id}}/file/{{o.id}}/edit" class="btn btn-sm btn-primary">Editar</a>
-                                    <a ng-href="#/project/{{o.project_id}}/file/{{o.id}}/remove" class="btn btn-sm btn-danger">Excluir</a>
-                                </td>
-                            </tr>
+                        <project-file-download project-id="{{o.project_id}}" id-file="{{o.id}}">
+                        </project-file-download>
+                        </td>
+                        <td>
+                            <a ng-href="#/project/{{o.project_id}}/file/{{o.id}}/edit" class="btn btn-sm btn-primary">Editar</a>
+                            <a ng-href="#/project/{{o.project_id}}/file/{{o.id}}/remove" class="btn btn-sm btn-danger">Excluir</a>
+                        </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

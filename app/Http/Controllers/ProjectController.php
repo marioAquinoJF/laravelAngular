@@ -19,16 +19,7 @@ class ProjectController extends Controller
         $this->middleware('check.project.owner', [
             'only' =>
             [
-                'removeMember',
-                'newMember',
                 'destroy'
-            ]
-        ]);
-        $this->middleware('check.project.permitions', [
-            'except' =>
-            [
-                'index',
-                'store'
             ]
         ]);
     }
@@ -58,42 +49,4 @@ class ProjectController extends Controller
         return $this->service->delete($id) ? ['message' => 'Excluído com sucesso!'] : ['message' => 'Não foi possível excluir o projeto!'];
     }
 
-// METHODS TO RELATIONS WITH MEMBERS   
-    public function getMembers($id)
-    {
-        return $this->repository->skipPresenter()->find($id)->members;
-    }
-
-    public function getMember($id, $member)
-    {
-        return $this->repository->hasMember($member, $id);
-    }
-
-    public function newMember($id, $member)
-    {
-        return [$this->service->addMember($id, $member)];
-    }
-
-    public function removeMember($id, $member)
-    {
-        return $this->service->removeMember($id, $member);
-    }
-
-// METHODS TO RELATIONS WITH TASKS
-    /*
-      public function getTask($id, $task_id)
-      {
-      return $this->repository->getTask($id, $task_id);
-      }
-     */
-// METHODS TO RELATIONS WITH Files
-    /*    public function getFiles($id)
-      {
-      return $this->repository->skipPresenter->find($id)->files();
-      }
-
-      public function getFile($id, $task_id)
-      {
-      return $this->repository->getTask($id, $task_id);
-      } */
 }

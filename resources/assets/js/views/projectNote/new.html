@@ -1,8 +1,20 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+            <a href="#/project/{{project_id}}/note/new" class="btn btn-success">Nova Nota</a>
+            <a href="#/project/{{project_id}}/show" class="btn btn-primary">Projeto</a>
+                                <a href="#/project/{{project_id}}/notes" class="btn btn-primary">Notas</a>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Nova Nota</div>
+                <div class="panel-heading">
+                    <div class="row">
+                        <h4 class="pull-left col-md-4"><b>Nova Nota</b></h4>
+                    </div>
+                </div>
                 <div class="panel-body">
                     <form name='projectNoteForm' class="form-horizontal" role="form" ng-submit="save();">
                         <div class="form-group" ng-class="{'has-error': !projectNoteForm.title.$valid && projectNoteForm.title.$touched}">
@@ -26,7 +38,6 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Cadastrar</button>
-                                <a href="#/project/{{project_id}}/notes" class="btn btn-primary">Voltar</a>
                             </div>
                         </div>
                     </form>

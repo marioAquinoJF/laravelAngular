@@ -1,14 +1,25 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+            <a href="#/project/{{projectTask.project_id}}/task/new" class="btn btn-success">Nova Tarefa</a>
+            <a href="#/project/{{projectTask.project_id}}/show" class="btn btn-primary">Projeto</a>
+            <a href="#/project/{{projectTask.project_id}}/tasks" class="btn btn-success">Tasks</a>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading"><strong>Nome: </strong> {{ projectTask.name }}</div>
-                <div class="panel-body">                    
-                    <div class="col-lg-12">
-                        <strong>Task</strong> {{projectTask.name}}
+                <div class="panel-heading">
+                    <div class="row">
+                        <h4 class="pull-left col-md-4"><strong>Nome: </strong> {{ projectTask.name }}</h4>
                     </div>
-                    <div class="col-md-6 col-md-offset-5">
-                        <a href="#/project/{{projectTask.project_id}}/tasks" class="btn btn-primary">Voltar</a>
+                </div>           
+                <div class="panel-body">                    
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <strong>Task</strong> {{projectTask.name}}
+                        </div>
                     </div>
                 </div>
             </div>

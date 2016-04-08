@@ -1,18 +1,29 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+            <a href="#/project/{{projectFile.project_id}}/file/new" class="btn btn-success">Adicionar Arquivo</a>
+            <a href="#/project/{{projectFile.project_id}}/show" class="btn btn-primary">Projeto</a>
+            <a href="#/project/{{projectFile.project_id}}/files" class="btn btn-success">Arquivos</a>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Exclusão de Nota</div>
+                <div class="panel-heading">
+                    <div class="row">
+                        <h4 class="pull-left col-md-4"><b>Exclusão de Arquivo</b></h4>
+                    </div>
+                </div>
                 <div class="panel-body">
                     <p>Deseja realmente excluir este arquivo?</p>
                     <ul>
-                        <li><strong>Name: </strong>{{ projectFile.name }}</li>
+                        <li><strong>Name: </strong>{{ projectFile.name}}</li>
                         <li><strong>File: </strong>{{ projectFile.description}}</li>
                     </ul>
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <button type="button" class="btn btn-danger" ng-click="remove()">Excluir</button>
-                            <a href="#/project/{{projectFile.project_id}}/files" class="btn btn-primary">Voltar</a>
                         </div>
                     </div>
                 </div>
