@@ -211,8 +211,8 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvi
         });
     }]);
 
-app.run(['$rootScope', '$location', '$http', '$modal', 'httpBuffer', 'OAuth',
-    function ($rootScope, $location, $http, $modal, httpBuffer, OAuth) {
+app.run(['$rootScope', '$location', '$modal', 'httpBuffer', 'OAuth',
+    function ($rootScope, $location, $modal, httpBuffer, OAuth) {
         $rootScope.$on('$routeChangeStart',
                 function (event, next, current) {
                     if (next.$$route.originalPath != '/login') { // verifica se a rota é a do login
@@ -227,7 +227,7 @@ app.run(['$rootScope', '$location', '$http', '$modal', 'httpBuffer', 'OAuth',
                 return;
             }
 
-            // Refresh token when a `invalid_token` error occurs.
+            // Refresh token when a `access_denied` error occurs.
             if ('access_denied' === data.rejection.data.error) {
                 httpBuffer.append(data.rejection.config, data.deferred);
                 if (!$rootScope.loginModalOpened) {

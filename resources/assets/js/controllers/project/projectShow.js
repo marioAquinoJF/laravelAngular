@@ -7,7 +7,9 @@ angular.module('app.controllers')
                                     $scope.clientSelected = data.client.data;                                    
                                     $scope.status = appConfig.project.getStatus(data.status);
                                 });
-
+                                for(var i = 0; i< 3;i++){
+                    Project.query();
+                }
             }
         ]);
 
