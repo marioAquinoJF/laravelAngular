@@ -25,6 +25,9 @@ angular.module('app.services')
                                 method: 'POST',
                                 transformRequest: transformData
                             },
+                            query: {
+                                isArray: false
+                            },
                             get: {
                                 method: 'GET',
                                 transformResponse: function (data, headers) {

@@ -24,9 +24,13 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->repository->findWithOwnerAndMember(\Authorizer::getResourceOwnerId());
+        if($request->get('isMember')):
+            return $this->repository->findAsMember(\Authorizer::getResourceOwnerId(), $request->get('limit'));
+        endif;
+        return $this->repository->findOwner(\Authorizer::getResourceOwnerId(), $request->get('limit'));      
+    
     }
 
     public function store(Request $request)

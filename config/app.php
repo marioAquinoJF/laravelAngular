@@ -13,7 +13,7 @@ return [
       |
      */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
     /*
       |--------------------------------------------------------------------------
       | Application URL
@@ -24,7 +24,7 @@ return [
       | your application so that it is used when running Artisan tasks.
       |
      */
-    'url' => 'http://localhost',
+    'url' => 'http://larangular',
     /*
       |--------------------------------------------------------------------------
       | Application Timezone

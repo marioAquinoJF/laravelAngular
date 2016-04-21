@@ -7,7 +7,7 @@ use larang\Entities\Client;
 
 class ClientTransformer extends TransformerAbstract
 {
-
+    protected $defaultIncludes = ['projects'];
     public function transform(Client $model)
     {
         return [
@@ -21,6 +21,13 @@ class ClientTransformer extends TransformerAbstract
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];
+    }
+
+    public function includeProjects(Client $client)
+    {
+        $transformer = new ProjectTransformer();
+        $transformer->setDefaultIncludes([]);        
+        return $this->collection($client->projects, $transformer);
     }
 
 }

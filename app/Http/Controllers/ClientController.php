@@ -18,10 +18,15 @@ class ClientController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    /**
+     * 
+     * @param Illuminate\Http\Request $request
+     * @return type
+     */
+    public function index(Request $request)
     {
-
-        return $this->repository->all();
+        $limit = $request->query->get('limit', 15);
+        return $this->repository->paginate($limit);
     }
 
     public function store(Request $request)

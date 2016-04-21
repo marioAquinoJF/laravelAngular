@@ -88,12 +88,28 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
 // METHODS TO RELATIONS WITH USERS
     public function findWithOwnerAndMember($userId)
     {
+       /* return $this->scopeQuery(function($queryBuilder) use($userId) {
+                    return $queryBuilder->select('projects.*')
+                                    ->join('projects_members', function($join){// 'projects_members.project_id', '=', 'projects.id')
+                                        $join('projects')
+                                    })->paginate();
+                                  //  ->where('projects_members.member_id', '=', $userId);
+                                  //  ->union($this->model->query()->getQuery()->where('owner_id', '=', $userId));
+                });*/
+    }
+    public function findAsMember($userId)
+    {
         return $this->scopeQuery(function($queryBuilder) use($userId) {
                     return $queryBuilder->select('projects.*')
                                     ->leftJoin('projects_members', 'projects_members.project_id', '=', 'projects.id')
-                                    ->where('projects_members.member_id', '=', $userId)
-                                    ->union($this->model->query()->getQuery()->where('owner_id', '=', $userId));
-                })->all();
+                                    ->where('projects_members.member_id', '=', $userId);
+                })->paginate();
+    }
+    public function findOwner($userId, $limit = null, $columns = [])
+    {
+        return $this->scopeQuery(function($queryBuilder) use($userId) {
+                    return $queryBuilder->select('projects.*')->where('projects.owner_id', '=', $userId);
+                })->paginate($limit, $columns);
     }
 
 }

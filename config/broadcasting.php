@@ -30,9 +30,9 @@ return [
 
         'pusher' => [
             'driver' => 'pusher',
-            'key' => env('PUSHER_KEY'),
-            'secret' => env('PUSHER_SECRET'),
-            'app_id' => env('PUSHER_APP_ID'),
+            'key' => env('fef457291540797a0997'),
+            'secret' => env('ba6a19cfd8a6f4426ede'),
+            'app_id' => env('199767'),
         ],
 
         'redis' => [

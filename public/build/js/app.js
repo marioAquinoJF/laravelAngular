@@ -1,10 +1,10 @@
 var app = angular.module('app', ['ngRoute', 'angular-oauth2', 'http-auth-interceptor',
     'app.controllers', 'app.services', 'app.directives',
-    'app.filters', "ui.bootstrap.typeahead", "ui.bootstrap.modal",
-    "ui.bootstrap.tpls", "ui.bootstrap.datepicker",
-    "ngFileUpload"]);
+    'app.filters', "ui.bootstrap.typeahead", "ui.bootstrap.modal", "ui.bootstrap.tabs",
+    "ui.bootstrap.tpls", "ui.bootstrap.datepicker", 'ui.bootstrap.dropdown', 'mgcrea.ngStrap.navbar',
+    "ngFileUpload", 'angularUtils.directives.dirPagination', 'pusher-angular']);
 
-angular.module('app.controllers', ['ngMessages', 'angular-oauth2']);
+angular.module('app.controllers', ['ngMessages']);
 angular.module('app.filters', []);
 angular.module('app.directives', []);
 angular.module('app.services', ['ngResource']);
@@ -13,6 +13,7 @@ app.provider('appConfig', ['$httpParamSerializerProvider',
     function ($httpParamSerializerProvider) {
         var config = {
             baseUrl: 'http://larangular/',
+            pusherKey: 'fef457291540797a0997',
             urls: {
                 projectFile: 'project/{{id}}/file/{{idFile}}'
             },
@@ -50,7 +51,7 @@ app.provider('appConfig', ['$httpParamSerializerProvider',
                     if (headersGetter['content-type'] == 'application/json' ||
                             headersGetter['content-type'] == 'text/json') {
                         var dataJson = JSON.parse(data);
-                        if (dataJson.hasOwnProperty('data')) {
+                        if (dataJson.hasOwnProperty('data') && Object.keys(dataJson).length == 1) {
                             dataJson = dataJson.data;
                         }
                         return dataJson;
@@ -93,9 +94,20 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvi
                     templateUrl: 'build/views/home.html',
                     controller: 'HomeController'
                 })
+                .when('/home/dashboard', {
+                    templateUrl: 'build/views/dashboard.html',
+                    controller: 'DashboardController',
+                    title: 'Dashboard'
+                })
+                .when('/clients/dashboard', {
+                    templateUrl: 'build/views/client/dashboard.html',
+                    controller: 'ClientsDashboardController',
+                    title: 'Clientes'
+                })
                 .when('/clients', {
                     templateUrl: 'build/views/client/list.html',
-                    controller: 'ClientListController'
+                    controller: 'ClientListController',
+                    title: 'Clientes'
                 })
                 .when('/client/new', {
                     templateUrl: 'build/views/client/new.html',
@@ -149,9 +161,20 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvi
                     templateUrl: 'build/views/projectFile/remove.html',
                     controller: 'ProjectFileRemoveController'
                 })
+                .when('/projects/dashboard', {
+                    templateUrl: 'build/views/project/dashboard.html',
+                    controller: 'ProjectsDashboardController',
+                    title: 'Projetos'
+                })
+                .when('/projects/member/dashboard', {
+                    templateUrl: 'build/views/project/dashboard.html',
+                    controller: 'ProjectsMemberDashboardController',
+                    title: 'Membro em Projetos'
+                })
                 .when('/projects', {
                     templateUrl: 'build/views/project/list.html',
-                    controller: 'ProjectListController'
+                    controller: 'ProjectListController',
+                    title: 'Projetos'
                 })
                 .when('/project/new', {
                     templateUrl: 'build/views/project/new.html',
@@ -211,8 +234,41 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvi
         });
     }]);
 
-app.run(['$rootScope', '$location', '$http', '$modal', 'httpBuffer', 'OAuth',
-    function ($rootScope, $location, $http, $modal, httpBuffer, OAuth) {
+app.run(['$rootScope', '$location', '$modal', '$cookies', '$pusher', 'httpBuffer', 'OAuth', 'appConfig',
+    function ($rootScope, $location, $modal, $cookies, $pusher, httpBuffer, OAuth, appConfig) {
+        $rootScope.$on('pusher-build', function (event, data) {
+            
+            if (data.next.$$route.originalPath != '/login') {
+                
+                if (OAuth.isAuthenticated()) {
+                  //  console.log($cookies.getObject('user').id);
+                    if (!window.client) {
+                 /*       Pusher.log = function (message) {
+                            if (window.console && window.console.log) {
+                                window.console.log(message);
+                            }
+                        };
+                        window.client = new Pusher(appConfig.pusherKey);
+                        var pusher = $pusher(window.client);
+                        var channel = pusher.subscribe('user.' + $cookies.getObject('user').id);
+
+                        channel.bind('larang\Events\TaskWasIncluded',
+                                function (data) {
+                                    console.log(data);
+                                }
+                        );*/
+                    }
+                }
+            }
+        });
+        $rootScope.$on('pusher-destroy', function (event, data) {
+         /*   if (data.next.$$route.originalPath != '/login') {
+                if (window.client) {
+                    window.client.disconnect();
+                    window.client = null;
+                }
+            }*/
+        });
         $rootScope.$on('$routeChangeStart',
                 function (event, next, current) {
                     if (next.$$route.originalPath != '/login') { // verifica se a rota é a do login
@@ -220,6 +276,12 @@ app.run(['$rootScope', '$location', '$http', '$modal', 'httpBuffer', 'OAuth',
                             $location.path('/login');
                         }
                     }
+                    $rootScope.$emit('pusher-build', {next: next});
+                    $rootScope.$emit('pusher-destroy', {next: next});
+                });
+        $rootScope.$on('$routeChangeSuccess',
+                function (event, current, previus) {
+                    $rootScope.pageTitle = current.$$route.title;
                 });
         $rootScope.$on('oauth:error', function (event, data) {
             // Ignore `invalid_grant` error - should be catched on `LoginController`.
@@ -227,7 +289,7 @@ app.run(['$rootScope', '$location', '$http', '$modal', 'httpBuffer', 'OAuth',
                 return;
             }
 
-            // Refresh token when a `invalid_token` error occurs.
+            // Refresh token when a `access_denied` error occurs.
             if ('access_denied' === data.rejection.data.error) {
                 httpBuffer.append(data.rejection.config, data.deferred);
                 if (!$rootScope.loginModalOpened) {
