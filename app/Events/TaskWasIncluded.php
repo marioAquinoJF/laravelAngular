@@ -3,8 +3,8 @@
 namespace larang\Events;
 
 use larang\Entities\ProjectTask;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class TaskWasIncluded extends Event implements ShouldBroadcast
 {

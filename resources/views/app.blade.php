@@ -126,19 +126,20 @@
     <script src="{{ elixir('js/all.js')}}"></script>
     @endif
     <script type="text/javascript" charset="UTF-8">
-/*        Pusher.log = function (message) {
-            if (window.console && window.console.log) {
-                window.console.log(message);
-            }
-        };*/
+        /* Pusher.log = function (message) {
+         if (window.console && window.console.log) {
+         window.console.log(message);
+         }
+         };*/
         socket = new Pusher('fef457291540797a0997');
         var channel = socket.subscribe('user.1');
 
-        channel.bind('larang\\Events\\TaskWasIncluded', function (data) {
-            window.console.log(data);
-        }
+        channel.bind('larang\\Events\\TaskWasIncluded',
+                function (data) {
+                    window.console.log(data);
+                }
         );
-        
+
     </script>
 </body>
 </html>
