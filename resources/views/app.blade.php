@@ -9,6 +9,7 @@
         <link href="{{ asset('build/css/vendor/font-awesome.min.css')}}" rel="stylesheet">
         <link href="{{ asset('build/css/flaticon.css')}}" rel="stylesheet">
         <link href="{{ asset('build/css/components.css')}}" rel="stylesheet">
+         <link href="{{ asset('build/css/vendor/angular-ui-notification.css')}}" rel="stylesheet">
         <link href="{{ asset('build/css/app.css')}}" rel="stylesheet">
 
         @else
@@ -29,6 +30,7 @@
 
 
     <load-template url="build/views/templates/menu.html"></load-template>
+    
     <!-- Scripts -->
     <div ng-view></div>
 
@@ -45,13 +47,16 @@
     <script src="{{ asset('build/js/vendor/dirPagination.js')}}"></script>
     <script src="{{ asset('build/js/vendor/pusher.min.js')}}"></script>
     <script src="{{ asset('build/js/vendor/pusher-angular.min.js')}}"></script>
-
+    <script src="{{ asset('build/js/vendor/angular-ui-notification.js')}}"></script>
+    <script src="{{ asset('build/js/vendor/angular-strap.min.js')}}"></script>
+     <script src="{{ asset('build/js/vendor/angular-strap.tpl.min.js')}}"></script>
     <!-- OAuth2 -->
     <script src="{{ asset('build/js/vendor/angular-cookies.min.js')}}"></script>
     <script src="{{ asset('build/js/vendor/query-string.js')}}"></script>
     <script src="{{ asset('build/js/vendor/angular-oauth2.min.js')}}"></script>
     <script src="{{ asset('build/js/vendor/http-auth-interceptor.js')}}"></script>
-
+     <script src="{{ asset('build/js/vendor/moment-with-locales.min.js')}}"></script>
+     <script src="{{ asset('build/js/vendor/angular-momentjs.min.js')}}"></script>
     <!-- APP -->
     <script src="{{ asset('build/js/app.js')}}"></script>
 
@@ -108,6 +113,8 @@
     <script src="{{ asset('build/js/directives/menu-actived.js')}}"></script>
     <script src="{{ asset('build/js/directives/tabs-codeEducation.js')}}"></script>
     <script src="{{ asset('build/js/directives/memberRestrictions.js')}}"></script>
+    <script src="{{ asset('build/js/directives/memberRestrictions.js')}}"></script>
+    <script src="{{ asset('build/js/directives/projects/projects.js')}}"></script>
     <!-- Filters -->
     <script src="{{ asset('build/js/filters/date-br.js')}}"></script>
     <!-- Services -->
@@ -125,21 +132,6 @@
 
     <script src="{{ elixir('js/all.js')}}"></script>
     @endif
-    <script type="text/javascript" charset="UTF-8">
-        /* Pusher.log = function (message) {
-         if (window.console && window.console.log) {
-         window.console.log(message);
-         }
-         };*/
-        socket = new Pusher('fef457291540797a0997');
-        var channel = socket.subscribe('user.1');
 
-        channel.bind('larang\\Events\\TaskWasIncluded',
-                function (data) {
-                    window.console.log(data);
-                }
-        );
-
-    </script>
 </body>
 </html>

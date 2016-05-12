@@ -1,5 +1,6 @@
 <section class="main">
     <div class="container">
+       
         <div class="row">
             <div class="col-xs-12">
                 <div class="boxed-manager">
@@ -8,7 +9,6 @@
                             <li class="boxed-manager-menu-nav-header">
                                 <h3 class="h4">
                                     Projetos
-
                                     <div class="btn-group pull-right">
                                         <a href="" class="btn btn-primary btn-sm text-upper">
                                             <small>Ver todos</small>
@@ -25,8 +25,8 @@
                                         <h4 class="h4 text-boulder">{{p.name}}</h4>
                                         <small class="text-upper text-silver">{{p.data.client.name}}</small>
                                     </header>
-                                    <p class="text-danger status">
-                                        <i class="fa fa-circle"></i> {{p.status}}
+                                    <p class="status {{ projects.config.get(p.status).class}}">
+                                        <i class="fa fa-circle"></i> <span>{{ projects.config.get(p.status).label}}</span>
                                     </p>
                                 </a>
                             </li>
@@ -36,19 +36,19 @@
                     <div class="boxed-manager-main arrow">
                         <div class="boxed-manager-main-header">
                             <h4 class="h4">
-                                {{project.name}} <small>({{project.progress}}%)</small>
+                                {{project.name}} <small>({{task.getPercentageCompleted()}}%)</small>
 
                                 <div class="btn-group pull-right">
-                                    <a href="#/project/{{project.id}}/update" class="btn btn-default btn-xs" title="Editar">
+                                    <a ng-href="{{editar ? '#/project/' + project.id + '/edit' : ''}}" class="btn btn-default btn-xs" ng-click='permitions("Editar")' title="Editar" required>
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="#/project/{{project.id}}/remove" class="btn btn-danger btn-xs" title="Apagar">
+                                    <a ng-href="{{editar ? '#/project/' + project.id + '/remove' : ''}}" class="btn btn-danger btn-xs" ng-click='permitions("Apagar")' title="Apagar" required>
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </div>
                             </h4>
                         </div>
-                        
+
                         <div class="boxed-manager-main-body">
                             <div class="btn-group" role="tablist" tabs-code-education>
                                 <a href=""
@@ -83,28 +83,112 @@
 
                             <br/>
                             <br/>
-                            
+
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="detalhes">
                                     <p>{{project.description}}</p>
 
                                 </div>
-                                <div role="tabpanel" class="tab-pane" id="tarefas">
-                                    <div class="task-list">
-                                        
-                                        <ul class="task-list-body">
-                                            <li ng-repeat="t in project.tasks.data">                                                
-                                                    <h6 class="task-list-title">{{t.name}}</h6>
-                                                    <p> </p>                                                    
-                                                
+                                <div role="tabpanel" class="tab-pane" id="tarefas">                                    
+                                    <div class="task-list" >
+
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <div  role="tablist" 
+                                                      start-collapsed="true" 
+                                                      aria-multiselectable="false" 
+                                                      bs-collapse>
+                                                    <button type='button' class="btn-sm btn-default save" bs-collapse-toggle>
+                                                        Nova Tarefa
+                                                    </button>
+
+                                                    <div class='list-collapse' bs-collapse-target>
+                                                        <form name='projectTaskForm' class="form-horizontal" role="form" ng-submit="task.save();">
+                                                            <div class="form-group" ng-class="{'has-error': !projectTaskForm.name.$valid && projectTaskForm.name.$touched}">
+                                                                <label class="col-md-4 control-label">Nome</label>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control" name="name" ng-model="task.projectTask.name" required="required">
+                                                                    <div ng-messages="projectTaskForm.name.$error" class="help-block" ng-show="projectTaskForm.name.$touched">
+                                                                        <div ng-message="required">Campo Obrigatório!</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" ng-class="{'has-error': !projectTaskForm.start_date.$valid && projectTaskForm.start_date.$touched}">
+                                                                <label class="col-md-4 control-label" for="start_date">Início: </label>
+                                                                <div class="col-md-6">
+                                                                    <p class="input-group">
+                                                                        <input type="text" class="form-control" name="start_date"
+                                                                               datepicker-popup="dd/MM/yyyy" 
+                                                                               ng-model="task.projectTask.start_date" 
+                                                                               is-open="task.start_date.status.opened"
+                                                                               close-text="Close" />
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" class="btn btn-default" ng-click="task.start_date.open($event)">
+                                                                                <i class="glyphicon glyphicon-calendar"></i>
+                                                                            </button>
+                                                                        </span>
+                                                                    </p>
+                                                                    <div ng-messages="projectTaskForm.start_date.$error" class="help-block" ng-show="projectTaskForm.start_date.$touched">
+                                                                        <div ng-message="date">Data inválida!</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" ng-class="{'has-error': !projectTaskForm.due_date.$valid && projectTaskForm.due_date.$touched}">
+                                                                <label class="col-md-4 control-label" for="due_date">Data de término: </label>
+                                                                <div class="col-md-6">
+                                                                    <p class="input-group">
+                                                                        <input type="text" class="form-control" name="due_date"
+                                                                               datepicker-popup="dd/MM/yyyy" 
+                                                                               ng-model="task.projectTask.due_date" 
+                                                                               is-open="task.due_date.status.opened"
+                                                                               close-text="Close"/>
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" class="btn btn-default" ng-click="task.due_date.open($event)">
+                                                                                <i class="glyphicon glyphicon-calendar"></i>
+                                                                            </button>
+                                                                        </span>
+                                                                    </p>
+                                                                    <div ng-messages="projectTaskForm.due_date.$error" class="help-block" ng-show="projectTaskForm.due_date.$touched">
+                                                                        <div ng-message="date">Data inválida!</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" >
+                                                                <label class="col-md-4 control-label">Status</label>
+                                                                <div class="col-md-6">
+                                                                    <select class="form-control" name="status"  
+                                                                            ng-options="s.value as s.label for s in task.status"
+                                                                            ng-model="task.projectTask.status">
+                                                                        <option value="">-- Seleciona um status --</option>
+                                                                    </select>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-md-6 col-md-offset-4">
+                                                                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" ng-repeat="t in project.tasks.data">                                                
+                                                <h6 class="task-list-title">{{t.name}}</h6>
+                                                <p>
+                                                    <b>Status: </b>{{t.status}}<br />
+                                                    <b>Iniciada em: </b>{{t.start_date| dateBr }}<br />
+                                                    <b>A concluir em: </b>{{t.due_date| dateBr }}<br />
+                                                </p>                                                    
+
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="arquivos">
                                     <div class="files-list-blocks">
-                                         <a href="" ng-repeat="f in project.files.data" class="text-center">
-                                             <h4>{{f.name}}</h4>
+                                        <a href="" ng-repeat="f in project.files.data" class="text-center">
+                                            <h4>{{f.name}}</h4>
                                             <img src="build/images/icons/ico-{{f.extension}}.png" alt="" />
                                             <project-file-download project-id="{{f.project_id}}" id-file="{{f.id}}"></project-file-download>
                                         </a>
@@ -164,7 +248,7 @@
                                                     <span class="time">3 minutes ago</span>
                                                 </h6>
                                                 <p class="notes-list-body-content">
-                                                   {{n.note}}
+                                                    {{n.note}}
                                                 </p>
                                             </div>
                                         </div> <!-- /notes-list-item ->
@@ -225,7 +309,7 @@
                         </div>
                         <div class="boxed-manager-info-body">
                             <div class="boxed-manager-info-body-chart text-center">
-                                <div class="radial-progress radial-progress-lg radial-progress-danger" data-progress="{{project.progress}}">
+                                <div class="radial-progress radial-progress-lg radial-progress-danger" data-progress="{{task.getPercentageCompleted()}}">
                                     <div class="circle">
                                         <div class="mask full">
                                             <div class="fill"></div>
@@ -238,7 +322,7 @@
                                     </div>
                                     <div class="inset">
                                         <div class="percentage">
-                                            <div class="numbers">{{project.progress}}%</div>
+                                            <div class="numbers">{{task.getPercentageCompleted()}}%</div>
                                         </div>
                                     </div>
                                 </div>
@@ -253,11 +337,11 @@
                                 <li class="list-styled-header text-upper text-center">
                                     Data de entrega
                                 </li>
-                                <li class="text-center text-silver">{{project.due_date | dateBr}}</li>
+                                <li class="text-center text-silver">{{project.due_date| dateBr}}</li>
                                 <li class="list-styled-header text-upper text-center">
-                                    Tarefas (12)
+                                    Tarefas ({{task.totalTasks}})
                                 </li>
-                                <li class="text-center text-silver">{{project.tasks.data.length}}</li>
+                                <li class="text-center text-silver">{{ (task.totalTasks - task.totalCompleted)}}</li>
                             </ul>
                         </div>
                     </div>

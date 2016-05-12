@@ -13,7 +13,7 @@ class ProjectMembersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(ProjectMember::class, 10)->create();
+        factory(ProjectMember::class, 20)->create();
     }
 
 }

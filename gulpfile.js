@@ -23,6 +23,8 @@ config.vendor_path_js = [
     config.bower_path + '/angular-messages/angular-messages.min.js',
     config.bower_path + '/angular-bootstrap/ui-bootstrap-tpls.min.js',
     config.bower_path + '/angular-strap/dist/modules/navbar.min.js',
+    config.bower_path + '/angular-strap/dist/angular-strap.min.js',
+    config.bower_path + '/angular-strap/dist/angular-strap.tpl.min.js',
     config.bower_path + '/angular-cookies/angular-cookies.min.js',
     config.bower_path + '/query-string/query-string.js',
     config.bower_path + '/angular-oauth2/dist/angular-oauth2.min.js',
@@ -31,6 +33,9 @@ config.vendor_path_js = [
     config.bower_path + '/angularUtils-pagination/dirPagination.js',
     config.bower_path + '/pusher/dist/pusher.min.js',
     config.bower_path + '/pusher-angular/lib/pusher-angular.min.js',
+    config.bower_path + '/angular-ui-notification/dist/angular-ui-notification.js',
+    config.bower_path + '/moment/min/moment-with-locales.min.js',
+    config.bower_path + '/angular-momentjs/angular-momentjs.min.js'
 ];
 config.vendor_path_fonts = [
     config.bower_path + '/bootstrap/dist/fonts/glyphicons-halflings-regular.eot',
@@ -54,6 +59,7 @@ config.vendor_path_css = [
     config.bower_path + '/bootstrap/dist/css/bootstrap.min.css',
     config.bower_path + '/bootstrap/dist/css/bootstrap-theme.min.css',
     config.bower_path + '/font-awesome/css/font-awesome.min.css',
+    config.bower_path + '/angular-ui-notification/dist/angular-ui-notification.css',
 ];
 
 config.build_path_html = config.build_path + "/views";

@@ -17,12 +17,12 @@ class DatabaseSeeder extends Seeder
         
         $this->call(UserTableSeeder::class);
         $this->call(ClientTableSeeder::class);
+        $this->call(OAuthClientSeeder::class);
         $this->call(ProjectTableSeeder::class);
         $this->call(ProjectNoteTableSeeder::class);
         $this->call(ProjectTasksTableSeeder::class);
         $this->call(ProjectMembersTableSeeder::class);
         $this->call(ProjectFileTableSeeder::class);
-        $this->call(OAuthClientSeeder::class);
         
         Model::reguard();
     }

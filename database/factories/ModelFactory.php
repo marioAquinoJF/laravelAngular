@@ -31,14 +31,15 @@ $factory->define(larang\Entities\Client::class, function (Faker\Generator $faker
 });
 
 $factory->define(larang\Entities\Project::class, function (Faker\Generator $faker) {
+    $dueDate = "2016-0" . rand(6,9) .'-0'. rand(1,9);
     return [
         'owner_id' => rand(1,10),
         'client_id' => $faker->numberBetween(1, 11),
         'name' => $faker->word,
         'description' => $faker->paragraph,
-        'progress' => rand(0,2),
-        'status' => rand(0, 1),
-        'due_date' => $faker->date('now')
+        'progress' => rand(0,100),
+        'status' => rand(1, 3),
+        'due_date' => $dueDate
     ];
 });
 

@@ -8,7 +8,7 @@ use larang\Entities\Project;
 class ProjectTransformer extends TransformerAbstract
 {
 
-    protected $defaultIncludes = [ 'members', 'client', 'tasks', 'notes', 'files'];
+    protected $defaultIncludes = [ 'owner', 'members', 'client', 'tasks', 'notes', 'files'];
 
     public function transform(Project $model)
     {
@@ -36,6 +36,11 @@ class ProjectTransformer extends TransformerAbstract
         return $this->item($model->client, new ClientTransformer());
     }
 
+    public function includeOwner(Project $model)
+    {
+        return $this->item($model->owner, new UserTransformer());
+    }
+
     public function includeTasks(Project $model)
     {
         return $this->collection($model->tasks, new ProjectTaskTransformer());
@@ -45,6 +50,7 @@ class ProjectTransformer extends TransformerAbstract
     {
         return $this->collection($model->notes, new ProjectNoteTransformer());
     }
+
     public function includeFiles(Project $model)
     {
         return $this->collection($model->files, new ProjectFileTransformer());

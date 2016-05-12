@@ -1,10 +1,10 @@
 var app = angular.module('app', ['ngRoute', 'angular-oauth2', 'http-auth-interceptor',
-    'app.controllers', 'app.services', 'app.directives',
+    'app.controllers', 'app.services', 'app.directives', 'angular-momentjs',
     'app.filters', "ui.bootstrap.typeahead", "ui.bootstrap.modal", "ui.bootstrap.tabs",
-    "ui.bootstrap.tpls", "ui.bootstrap.datepicker", 'ui.bootstrap.dropdown', 'mgcrea.ngStrap.navbar',
-    "ngFileUpload", 'angularUtils.directives.dirPagination', 'pusher-angular']);
+    "ui.bootstrap.tpls", "ui.bootstrap.datepicker", 'ui.bootstrap.dropdown', 'mgcrea.ngStrap', 'mgcrea.ngStrap.navbar', 'mgcrea.ngStrap.collapse',
+    "ngFileUpload", 'angularUtils.directives.dirPagination', 'pusher-angular', 'ui-notification']);
 
-angular.module('app.controllers', ['ngMessages']);
+angular.module('app.controllers', ['ngMessages', 'mgcrea.ngStrap', 'mgcrea.ngStrap.collapse']);
 angular.module('app.filters', []);
 angular.module('app.directives', []);
 angular.module('app.services', ['ngResource']);
@@ -20,14 +20,14 @@ app.provider('appConfig', ['$httpParamSerializerProvider',
             project:
                     {
                         status: [
-                            {value: 1, label: 'Não iniciado'},
-                            {value: 2, label: 'Iniciado'},
-                            {value: 3, label: 'concluído'}
+                            {value: 1, label: 'Não iniciado', class: 'text-danger'},
+                            {value: 2, label: 'Iniciado', class: 'text-info'},
+                            {value: 3, label: 'concluído', class: 'text-gray'}
                         ],
-                        getStatus: function (value) {
+                        get: function (value) {
                             for (var i in this.status) {
                                 if (this.status[i].value == value) {
-                                    return this.status[i].label;
+                                    return this.status[i];
                                 }
                             }
                         }
@@ -67,15 +67,18 @@ app.provider('appConfig', ['$httpParamSerializerProvider',
             }
         };
     }]);
-app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvider', 'appConfigProvider',
-    function ($routeProvider, $httpProvider, OAuthProvider, OAuthTokenProvider, appConfigProvider) {
-        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvider', 'appConfigProvider', '$momentProvider',
+    function ($routeProvider, $httpProvider, OAuthProvider, OAuthTokenProvider, appConfigProvider, $momentProvider) {
+       $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.transformRequest = appConfigProvider.config.utils.transformRequest;
         $httpProvider.defaults.transformResponse = appConfigProvider.config.utils.transformResponse;
         $httpProvider.interceptors.splice(0, 1);
         $httpProvider.interceptors.splice(0, 1);
         $httpProvider.interceptors.push('oauthFixInterceptor');
+        $momentProvider
+                .asyncLoading(false)
+                .scriptUrl(appConfigProvider.config.baseUrl + 'build/js/vendor/moment-with-locales.min.js');
         $routeProvider
                 .when('/login', {
                     templateUrl: 'build/views/login.html',
@@ -164,12 +167,14 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvi
                 .when('/projects/dashboard', {
                     templateUrl: 'build/views/project/dashboard.html',
                     controller: 'ProjectsDashboardController',
-                    title: 'Projetos'
+                    title: 'Projetos',
+                    isMember: 0
                 })
                 .when('/projects/member/dashboard', {
                     templateUrl: 'build/views/project/dashboard.html',
-                    controller: 'ProjectsMemberDashboardController',
-                    title: 'Membro em Projetos'
+                    controller: 'ProjectsDashboardController',
+                    title: 'Membro em Projetos',
+                    isMember: 1
                 })
                 .when('/projects', {
                     templateUrl: 'build/views/project/list.html',
@@ -234,16 +239,17 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvi
         });
     }]);
 
-app.run(['$rootScope', '$location', '$modal', '$cookies', '$pusher', 'httpBuffer', 'OAuth', 'appConfig',
-    function ($rootScope, $location, $modal, $cookies, $pusher, httpBuffer, OAuth, appConfig) {
+app.run(['$rootScope', '$location', '$modal', '$cookies',
+    '$pusher', 'httpBuffer', 'OAuth', 'appConfig', 'Notification',
+    function ($rootScope, $location, $modal, $cookies,
+            $pusher, httpBuffer, OAuth, appConfig, Notification) {
+
         $rootScope.$on('pusher-build', function (event, data) {
-            
             if (data.next.$$route.originalPath != '/login') {
-                
+
                 if (OAuth.isAuthenticated()) {
-                  //  console.log($cookies.getObject('user').id);
                     if (!window.client) {
-                 /*       Pusher.log = function (message) {
+                        Pusher.log = function (message) {
                             if (window.console && window.console.log) {
                                 window.console.log(message);
                             }
@@ -251,23 +257,23 @@ app.run(['$rootScope', '$location', '$modal', '$cookies', '$pusher', 'httpBuffer
                         window.client = new Pusher(appConfig.pusherKey);
                         var pusher = $pusher(window.client);
                         var channel = pusher.subscribe('user.' + $cookies.getObject('user').id);
-
-                        channel.bind('larang\Events\TaskWasIncluded',
+                        channel.bind('larang\\Events\\TaskWasIncluded',
                                 function (data) {
-                                    console.log(data);
+                                    var name = data.task.name;
+                                    Notification.success('Tarefa: ' + name + ' foi incluida!');
                                 }
-                        );*/
+                        );
                     }
                 }
             }
         });
         $rootScope.$on('pusher-destroy', function (event, data) {
-         /*   if (data.next.$$route.originalPath != '/login') {
+            if (data.next.$$route.originalPath == '/login') {
                 if (window.client) {
                     window.client.disconnect();
                     window.client = null;
                 }
-            }*/
+            }
         });
         $rootScope.$on('$routeChangeStart',
                 function (event, next, current) {

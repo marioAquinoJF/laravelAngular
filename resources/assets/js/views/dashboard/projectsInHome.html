@@ -1,0 +1,61 @@
+<div class="col-sm-4" ng-repeat="p in projects">
+    <div class="panel panel-default panel-stacked">
+        <div class="panel-heading bg-white no-border-bottom text-boulder">
+            <h3 class="h4 text-boulder">{{p.name}}</h3>
+            <small class="text-upper text-silver">Cliente empresa</small>
+        </div> <!-- /panel-heading bg-white -->
+        <div class="panel-body">
+            <ul class="list-unstyled list-padding text-boulder">
+                <li class="clearfix">
+                    Progresso:
+
+                    <div class="radial-progress radial-progress-xs radial-progress-warning progresso-inline pull-right" data-progress="50">
+                        <div class="circle">
+                            <div class="mask full">
+                                <div class="fill"></div>
+                            </div>
+                            <div class="mask half">
+                                <div class="fill"></div>
+                                <div class="fill fix"></div>
+                            </div>
+                            <div class="shadow"></div>
+                        </div>
+                        <div class="inset">
+                            <div class="percentage">
+                                <div class="numbers">{{p.progress}}%</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    Progresso esperado:
+
+                    <div class="radial-progress radial-progress-xs radial-progress-warning progresso-inline pull-right" data-progress="100">
+                        <div class="circle">
+                            <div class="mask full">
+                                <div class="fill"></div>
+                            </div>
+                            <div class="mask half">
+                                <div class="fill"></div>
+                                <div class="fill fix"></div>
+                            </div>
+                            <div class="shadow"></div>
+                        </div>
+                        <div class="inset">
+                            <div class="percentage">
+                                <div class="numbers">{{expectedProgress(p)}}%</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    Prazo: <span class="pull-right text-orange">{{p.due_date| dateBr}}</span>
+                </li>
+            </ul> <!-- /panel-list-unstyled -->
+        </div> <!-- /panel-body -->
+        <div class="panel-footer panel-footer-xs no-border-top sazerac text-info font-bold">
+            <i class="fa fa-circle"></i> Não iniciou
+            <span class="pull-right">+0</span>
+        </div> <!-- /panel-footer panel-footer-xs sazerac -->
+    </div> <!-- /panel.panel-default -->
+</div>

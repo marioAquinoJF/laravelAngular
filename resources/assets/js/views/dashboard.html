@@ -5,7 +5,7 @@
                 <header class="header-internal">
                     <div class="row row-xs">
                         <div class="col-xs-8">
-                            <h2 class="h4 page-title line-after">
+                            <h2 class="h4 page- line-after">
                                 <span>Projetos</span>
                             </h2>
                         </div>
@@ -13,14 +13,7 @@
                             <div class="tools">
                                 <div>
                                     <label class="select-styled select-styled-default select-styled-sm">
-                                        <select>
-                                            <option selected="selected">Todos</option>
-                                            <option>Nome do projeto</option>
-                                            <option>Nome do projeto2</option>
-                                            <option>Nome do projeto3</option>
-                                            <option>Nome do projeto4</option>
-                                            <option>Nome do projeto5</option>
-                                        </select>
+                                       <select ng-options="item as item.name for item in projects track by item.id" ng-model="selected"></select>
                                     </label>
                                 </div>
                                 <div class="btn-group">
@@ -32,9 +25,10 @@
                                     </a>
                                 </div>
 
-                                <div class="btn btn-default btn-sm">
-                                    <i class="fa fa-plus"></i> Projeto
-                                </div>
+                                <a href="#/project/new" class="btn btn-default btn-sm">
+                                    <i class="fa fa-plus"></i>
+                                    Projeto
+                                </a>
                             </div> <!-- /tools -->
                         </div>
                     </div>
@@ -65,7 +59,7 @@
                                             </div>
                                             <div class="inset">
                                                 <div class="percentage">
-                                                    <div class="numbers">{{p.progress}}%</div>
+                                                    <div class="numbers">{{progress.getPercentageCompleted(p.tasks.data, p.status)}}%</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -86,7 +80,7 @@
                                             </div>
                                             <div class="inset">
                                                 <div class="percentage">
-                                                    <div class="numbers">{{expectedProgress(p)}}%</div>
+                                                    <div class="numbers">{{progress.getPercentageOfElapsedTime(p)}}%</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -96,9 +90,9 @@
                                     </li>
                                 </ul> <!-- /panel-list-unstyled -->
                             </div> <!-- /panel-body -->
-                            <div class="panel-footer panel-footer-xs no-border-top sazerac text-info font-bold">
-                                <i class="fa fa-circle"></i> Não iniciou
-                                <span class="pull-right">+0</span>
+                            <div class="panel-footer panel-footer-xs no-border-top sazerac font-bold {{ config.get(p.status).class}}" >
+                                <i class="fa fa-circle"></i> {{ config.get(p.status).label}}
+                                <span class="pull-right">{{ progress.getElapsedTimeOfProject(p)}}</span>
                             </div> <!-- /panel-footer panel-footer-xs sazerac -->
                         </div> <!-- /panel.panel-default -->
                     </div>
@@ -106,27 +100,20 @@
             </div>
             <div class="col-xs-3">
                 <h5>Últimas atualizações</h5>
-
                 <br/>
                 <div class="mini-timeline">
-                    <div class="list-item list-item-stacked text-boulder">
-
-                        <div class="clearfix row">
-                            <div class="col-sm-2 text-primary"><i class="fa fa-refresh" aria-hidden="true"></i></div>
-                            <div class="col-sm-10">
-                                <p class="text-justify">
-                                    <strong>Mudança de status em um projeto</strong>
-                                    <br/>
-                                    <small>há alguns segundos</small>
-                                    <br/>
-                                    <span class="text-info">O status no novo site foi alterado para vencido</span>
-                                </p>
-                            </div>
-
+                    <div class="list-item list-item-stacked text-boulder" ng-repeat="o in tasks">
+                        <div class="clearfix">
+                            <img src="http://mmn.silasribas.com.br/bundles/sonbase/geral/images/anonymous.png?2" alt="" class="avatar-sm rounded"/>
+                            <p>
+                                <strong>Mudança de status em um projeto</strong>
+                                <br/>
+                                <small>há alguns segundos</small>
+                                <br/>
+                                <span class="text-info">{{ o.name}}</span>
+                            </p>
                         </div>
-
                     </div> <!-- /list-item -->
-                    
                 </div>
             </div>
         </div>
