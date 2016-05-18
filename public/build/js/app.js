@@ -30,6 +30,7 @@ app.provider('appConfig', ['$httpParamSerializerProvider',
                                     return this.status[i];
                                 }
                             }
+                            return {value: 1, label: 'Não iniciado', class: 'text-danger'};
                         }
                     },
             projectTask:
@@ -37,7 +38,15 @@ app.provider('appConfig', ['$httpParamSerializerProvider',
                         status: [
                             {value: 1, label: 'Incompoleta'},
                             {value: 2, label: 'Completa'}
-                        ]
+                        ],
+                        getStatus: function (value) {
+                            for (var i in this.status) {
+                                if (this.status[i].value == value) {
+                                    return this.status[i];
+                                }
+                            }
+                            return {value: 1, label: 'Incompoleta'};
+                        }
                     },
             utils: {
                 transformRequest: function (data) {
@@ -69,7 +78,7 @@ app.provider('appConfig', ['$httpParamSerializerProvider',
     }]);
 app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvider', 'appConfigProvider', '$momentProvider',
     function ($routeProvider, $httpProvider, OAuthProvider, OAuthTokenProvider, appConfigProvider, $momentProvider) {
-       $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.transformRequest = appConfigProvider.config.utils.transformRequest;
         $httpProvider.defaults.transformResponse = appConfigProvider.config.utils.transformResponse;
@@ -240,9 +249,9 @@ app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvi
     }]);
 
 app.run(['$rootScope', '$location', '$modal', '$cookies',
-    '$pusher', 'httpBuffer', 'OAuth', 'appConfig', 'Notification',
+    '$pusher', '$moment', 'httpBuffer', 'OAuth', 'appConfig', 'Notification',
     function ($rootScope, $location, $modal, $cookies,
-            $pusher, httpBuffer, OAuth, appConfig, Notification) {
+            $pusher, $moment, httpBuffer, OAuth, appConfig, Notification) {
 
         $rootScope.$on('pusher-build', function (event, data) {
             if (data.next.$$route.originalPath != '/login') {
@@ -260,7 +269,16 @@ app.run(['$rootScope', '$location', '$modal', '$cookies',
                         channel.bind('larang\\Events\\TaskWasIncluded',
                                 function (data) {
                                     var name = data.task.name;
-                                    Notification.success('Tarefa: ' + name + ' foi incluida!');
+                                    var startDate = $moment(data.task.start_date, 'YYYY-MM-DD').format('DD/MM/YYYY');
+                                    Notification.success('A tarefa ' + name + ' foi incluida! <br/> Início em: ' + startDate);
+                                }
+                        );
+                        channel.bind('larang\\Events\\TaskWasUpdated',
+                                function (data) {
+                                    var name = data.task.name;
+                                    var updateDate = $moment(data.task.updated_at.split(' ')[0], 'YYYY-MM-DD').format('DD/MM/YYYY');
+                                    var text = data.task.status == 2 ? "concluída" : "alterada";
+                                    Notification.success('Tarefa: ' + name + ' foi ' + text + '!');
                                 }
                         );
                     }

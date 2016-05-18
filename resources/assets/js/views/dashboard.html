@@ -13,7 +13,7 @@
                             <div class="tools">
                                 <div>
                                     <label class="select-styled select-styled-default select-styled-sm">
-                                       <select ng-options="item as item.name for item in projects track by item.id" ng-model="selected"></select>
+                                        <select ng-options="item as item.name for item in projects track by item.id" ng-model="selected"></select>
                                     </label>
                                 </div>
                                 <div class="btn-group">
@@ -104,13 +104,21 @@
                 <div class="mini-timeline">
                     <div class="list-item list-item-stacked text-boulder" ng-repeat="o in tasks">
                         <div class="clearfix">
-                            <img src="http://mmn.silasribas.com.br/bundles/sonbase/geral/images/anonymous.png?2" alt="" class="avatar-sm rounded"/>
                             <p>
-                                <strong>Mudança de status em um projeto</strong>
+                                <i class="fa fa-plus-circle avatar-sm rounded" aria-hidden="true" ng-class="{'alert-info': o.status == 2, 'alert-danger': o.status != 2 }"></i>
+                            </p>
+                            <br />
+                            <p>
+                                <strong class="text-info">Tarefa: {{ o.name}}</strong>
                                 <br/>
-                                <small>há alguns segundos</small>
+                                <small>Início: {{ o.start_date | dateBr}}</small>
                                 <br/>
-                                <span class="text-info">{{ o.name}}</span>
+                                <small>Conclusão: {{ o.due_date | dateBr}}</small>
+                                <br/>
+                                <small>Ultima modificação: {{ o.updated_at.date.split(' ')[0] | dateBr}}</small>
+                                <br/>
+                                <strong ng-class="{'text-info': o.status == 2, 'text-danger': o.status != 2 }">Status:  {{ configTask.getStatus(o.status).label }}</strong>
+
                             </p>
                         </div>
                     </div> <!-- /list-item -->

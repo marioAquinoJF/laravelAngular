@@ -104,7 +104,6 @@
     <!-- Project Member-->
     <script src="{{ asset('build/js/controllers/projectMember/projectMemberList.js')}}"></script>
     <script src="{{ asset('build/js/controllers/projectMember/projectMemberRemove.js')}}"></script>
-    <script src="{{ asset('build/js/controllers/project/projectMemberDashboard.js')}}"></script>
 
     <!-- Directives -->
     <script src="{{ asset('build/js/directives/projectFileDownload.js')}}"></script>
@@ -127,6 +126,7 @@
     <script src="{{ asset('build/js/services/projectTask.js')}}"></script>
     <script src="{{ asset('build/js/services/projectMember.js')}}"></script>
     <script src="{{ asset('build/js/services/oauthFixInterceptor.js')}}"></script>
+    <script src="{{ asset('build/js/services/searches.js')}}"></script>
 
     @else
 

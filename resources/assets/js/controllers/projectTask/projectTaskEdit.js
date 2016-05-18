@@ -20,6 +20,7 @@ angular.module('app.controllers')
                             }
                         };
                 $scope.save = function () {
+                    console.log($scope.projectTaskForm.name);
                     if ($scope.projectTaskForm.$valid) {
                         ProjectTask.update(
                                 {id: $routeParams.id, idTask: $routeParams.idTask},

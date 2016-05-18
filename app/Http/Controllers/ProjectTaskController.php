@@ -18,14 +18,23 @@ class ProjectTaskController extends Controller
         $this->service = $sevice;
     }
 
-    public function index($id)
+    public function index($id, Request $request)
     {
-        return $this->repository->findWhere(['project_id' => $id]);
+        
+        if (!isset($request->id)) {
+            return $this->repository->findWhere(['project_id' => $id]);
+        }
+        return $this->repository->findWhere($request->all());
+    }
+
+    public function search(Request $request)
+    {
+        return $this->repository->findFromOwnerAndMember(\Authorizer::getResourceOwnerId(), $request->get('limit'));
     }
 
     public function store($id, Request $request)
     {
-        return $this->service->create(array_merge($request->all(), ['project_id'=>$id]));
+        return $this->service->create(array_merge($request->all(), ['project_id' => $id]));
     }
 
     public function show($id, $task)
